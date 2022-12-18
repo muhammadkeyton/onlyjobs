@@ -6,10 +6,10 @@ import Head from 'next/head';
 //page components imports
 import NavBar from "../components/landingPage/navBar";
 import HeroSection from "../components/landingPage/hero"
+import Services from '../components/landingPage/services';
 
-
-
-
+// material ui
+import Divider from '@mui/material/Divider';
 
 export default function LandingPage(){
   
@@ -40,6 +40,10 @@ export default function LandingPage(){
       
       <NavBar/>
       <HeroSection/>
+
+      <Divider/>
+      
+      <Services />
       
     </div>
   )

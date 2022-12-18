@@ -25,6 +25,10 @@ import { Poppins,Ubuntu} from '@next/font/google'
 //css for this component
 import landingPageCss from "../../styles/landingPage.module.css";
 
+
+
+import { useRouter } from 'next/router'
+
 const poppins = Poppins({
   weight: '400',
   subsets: ['latin'],
@@ -41,15 +45,26 @@ const ubuntu = Ubuntu({
 
 
 const drawerWidth = 280;
-const navItems = ['Home', 'Services', 'Careers',"Team"];
+const navItems = ['Home', 'Services', 'Careers'];
 
 export default function DrawerAppBar() {
 
   const [mobileOpen, setMobileOpen] = useState(false);
+  const router = useRouter();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+  
+
+  //scrolling not working next issue to work on
+  function scrollToServices() {
+    router.push('/services');
+    window.scrollTo({
+      top: document.getElementById('services')!.offsetTop,
+      behavior: 'smooth'
+    });
+  }
 
   const drawer = (
   
