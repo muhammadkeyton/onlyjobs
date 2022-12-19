@@ -23,7 +23,8 @@ import { Poppins,Ubuntu} from '@next/font/google'
 
 
 //css for this component
-import landingPageCss from "../../styles/landingPage.module.css";
+//import landingPageCss from "../../styles/landingPage.module.css";
+import landingPageCss from '../../styles/landingPage.module.css';
 
 
 import scrollTo  from 'scroll-to-element';
@@ -91,7 +92,16 @@ export default function DrawerAppBar() {
     
     <div id="home">
 
-      <AppBar component="nav" color="inherit"  className={landingPageCss.appbar}>
+      <AppBar component="nav" color="inherit" 
+      
+       sx={{
+        display:"flex",
+        flexDirection:"row",
+        justifyContent:"space-between",
+        alignItems:"center",
+        padding:"1.5rem 3rem",    
+       }}
+      >
        
        
           <Typography
