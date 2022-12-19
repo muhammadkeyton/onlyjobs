@@ -1,5 +1,4 @@
-//next js imports
-import { Poppins} from '@next/font/google'
+
 
 
 //material ui imports
@@ -15,12 +14,9 @@ import PaymentIcon from '@mui/icons-material/Payment';
 import landingPageCss from "../../styles/landingPage.module.css";
 
 
-import { PARAGRAPH_HEXCOLOR,MAINBUTTON_HOVER,MAINBUTTON_PRE_HOVER } from '../componentConstants/textColors';
 
-const poppins = Poppins({
-    weight: '400',
-    subsets: ['latin'],
-})
+
+
 
 
 
