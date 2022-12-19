@@ -26,8 +26,9 @@ import { Poppins,Ubuntu} from '@next/font/google'
 import landingPageCss from "../../styles/landingPage.module.css";
 
 
+import scrollTo  from 'scroll-to-element';
 
-import { useRouter } from 'next/router'
+
 
 const poppins = Poppins({
   weight: '400',
@@ -45,26 +46,17 @@ const ubuntu = Ubuntu({
 
 
 const drawerWidth = 280;
-const navItems = ['Home', 'Services', 'Careers'];
+const navItems = ['home', 'services','contact'];
 
 export default function DrawerAppBar() {
 
   const [mobileOpen, setMobileOpen] = useState(false);
-  const router = useRouter();
+  
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
   
-
-  //scrolling not working next issue to work on
-  function scrollToServices() {
-    router.push('/services');
-    window.scrollTo({
-      top: document.getElementById('services')!.offsetTop,
-      behavior: 'smooth'
-    });
-  }
 
   const drawer = (
   
@@ -76,10 +68,11 @@ export default function DrawerAppBar() {
       <Divider />
       <List>
         {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton  sx={{ textAlign: 'center' }}>
-              <ListItemText className={poppins.className} disableTypography primary={item} />
-            </ListItemButton>
+          <ListItem  key={item} disablePadding>
+              <ListItemButton onClick={(): void => scrollTo(`#${item}`)} component="a"   sx={{ textAlign: 'center' }}>
+                <ListItemText className={poppins.className} disableTypography primary={item} />
+              </ListItemButton>
+            
           </ListItem>
         ))}
       </List>
@@ -96,7 +89,7 @@ export default function DrawerAppBar() {
 
   return (
     
-    <Box>
+    <div id="home">
 
       <AppBar component="nav" color="inherit"  className={landingPageCss.appbar}>
        
@@ -123,9 +116,11 @@ export default function DrawerAppBar() {
           </IconButton>
           <Box  sx={{ display: { xs:'none',sm:'none',md: 'none', lg: 'block' } }}>
             {navItems.map((item) => (
-              <Button className={poppins.className} key={item} sx={{ color: 'black',paddingX:4,textTransform:"none" }}>
-                {item}
-              </Button>
+               
+                <Button onClick={(): void => scrollTo(`#${item}`)} component="a" className={poppins.className} key={item} sx={{ color: 'black',paddingX:4,textTransform:"none" }}>
+                  {item}
+                </Button>
+              
             ))}
           </Box>
           
@@ -159,7 +154,7 @@ export default function DrawerAppBar() {
       </Box>
 
 
-    </Box>
+    </div>
    
   );
 }

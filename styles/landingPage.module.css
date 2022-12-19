@@ -92,7 +92,40 @@
     color:#fff;
     
 }
-  
+
+
+/* footer section */
+
+.footer{
+    background-color:#000000;
+    color:#D6E4E5;
+    margin-top:5rem ;
+    padding:1.5rem 3rem;
+    align-items: center;
+     
+}
+
+.more{
+    margin-top:0;
+    cursor:pointer;
+}
+
+.socialIcons{
+    display: flex;
+    margin-top:35px;
+    justify-content: center;
+}
+
+.icons{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #EEEEEE;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
 
 
 

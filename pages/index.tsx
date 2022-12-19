@@ -7,6 +7,7 @@ import Head from 'next/head';
 import NavBar from "../components/landingPage/navBar";
 import HeroSection from "../components/landingPage/hero"
 import Services from '../components/landingPage/services';
+import Footer from '../components/landingPage/footer';
 
 // material ui
 import Divider from '@mui/material/Divider';
@@ -44,6 +45,10 @@ export default function LandingPage(){
       <Divider/>
       
       <Services />
+
+      <Divider/>
+
+      <Footer />
       
     </div>
   )
