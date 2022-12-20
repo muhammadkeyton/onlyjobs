@@ -22,14 +22,9 @@ import { Bbutton } from '../reUseableComponents/button';
 import { Poppins,Ubuntu} from '@next/font/google'
 
 
-//css for this component
-//import landingPageCss from "../../styles/landingPage.module.css";
-import landingPageCss from '../../styles/landingPage.module.css';
-
-
 import scrollTo  from 'scroll-to-element';
 
-
+import {createTheme,ThemeProvider} from '@mui/material/styles';
 
 const poppins = Poppins({
   weight: '400',
@@ -38,18 +33,34 @@ const poppins = Poppins({
 
 const ubuntu = Ubuntu({
   weight: '700',
-  style: ['normal', 'italic'],
+  style: ['italic'],
   subsets: ['latin'],
 })
 
 
+//adding custom fonts to material ui components
+const logo = createTheme({
+  typography: {
+    fontFamily: [
+      ubuntu.style.fontFamily,
+    ].join(','),
+  },
+});
 
 
+const nav = createTheme({
+  typography: {
+    fontFamily: [
+      poppins.style.fontFamily,
+    ].join(','),
+  },
+});
 
 const drawerWidth = 280;
 const navItems = ['home', 'services','contact'];
 
 export default function DrawerAppBar() {
+  
 
   const [mobileOpen, setMobileOpen] = useState(false);
   
@@ -62,26 +73,33 @@ export default function DrawerAppBar() {
   const drawer = (
   
     <Box  onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-       
-          <Typography className={ubuntu.className} variant="h6" sx={{ my: 2 }}>
-          onlyJobs
-          </Typography>
+          <ThemeProvider theme={logo}>
+            <Typography className={ubuntu.className} variant="h6" sx={{ my: 2 }}>
+            onlyJobs
+            </Typography>
+          </ThemeProvider>
       <Divider />
+
+      
       <List>
         {navItems.map((item) => (
           <ListItem  key={item} disablePadding>
-              <ListItemButton onClick={(): void => scrollTo(`#${item}`)} component="a"   sx={{ textAlign: 'center' }}>
-                <ListItemText className={poppins.className} disableTypography primary={item} />
-              </ListItemButton>
+             <ThemeProvider theme={nav}>
+                <ListItemButton onClick={(): void => scrollTo(`#${item}`)} component="a"   sx={{ textAlign: 'center' }}>
+                  <ListItemText  primary={item} />
+                </ListItemButton>
+              </ThemeProvider>
             
           </ListItem>
         ))}
       </List>
       <Divider />
-      <List>
-        <Bbutton xTraStyling={poppins.className} buttonType="contained" color1='#181D31' color2="#181D31" text="Sign Up" pad="15px 30px" marg="0 20px 0 0"/>
-        <Bbutton xTraStyling={poppins.className} buttonType="outlined" color1='#fff' color2="#fff" text="Sign In" pad="15px 30px" marg="0"/>
-      </List>
+      <ThemeProvider theme={nav}>
+        <List>
+          <Bbutton xTraStyling="" buttonType="contained" color1='#181D31' color2="#181D31" text="Sign Up" pad="15px 30px" marg="0 20px 0 0"/>
+          <Bbutton xTraStyling="" buttonType="outlined" color1='#fff' color2="#fff" text="Sign In" pad="15px 30px" marg="0"/>
+        </List>
+      </ThemeProvider>
     </Box>
   
   );
@@ -91,7 +109,8 @@ export default function DrawerAppBar() {
   return (
     
     <div id="home">
-
+     
+     
       <AppBar component="nav" color="inherit" 
       
        sx={{
@@ -103,16 +122,17 @@ export default function DrawerAppBar() {
        }}
       >
        
-       
+       <ThemeProvider theme={logo}>
           <Typography
             variant="h6"
             component="div"
             sx={{display: { xs: 'block', sm: 'block' ,color:"black",cursor:"pointer"} }}
-            className={ubuntu.className}
+            
             
           >
             onlyJobs
           </Typography>
+        </ThemeProvider>
        
         
 
@@ -124,20 +144,27 @@ export default function DrawerAppBar() {
           >
             {mobileOpen?<CloseIcon/>:<MenuIcon />}
           </IconButton>
+
+          <ThemeProvider theme={nav}>
           <Box  sx={{ display: { xs:'none',sm:'none',md: 'none', lg: 'block' } }}>
             {navItems.map((item) => (
                
-                <Button onClick={(): void => scrollTo(`#${item}`)} component="a" className={poppins.className} key={item} sx={{ color: 'black',paddingX:4,textTransform:"none" }}>
+               
+                <Button onClick={(): void => scrollTo(`#${item}`)} component="a"  key={item} sx={{ color: 'black',paddingX:4,textTransform:"none" }}>
                   {item}
                 </Button>
+                
               
             ))}
           </Box>
+          </ThemeProvider>
           
+          <ThemeProvider theme={nav}>
           <Box  sx={{ display: {  xs:'none',sm:'none',md: 'none', lg: 'block' } }}>
-            <Bbutton xTraStyling={poppins.className}  buttonType="contained" color1='#181D31' color2="#181D31" text="Sign Up" pad="15px 30px" marg="0"/>
-            <Bbutton xTraStyling={poppins.className}  buttonType="outlined" color1='#fff' color2="#fff" text="Sign In" pad="15px 30px" marg="0 0 0 40px"/>
+            <Bbutton xTraStyling="" buttonType="contained" color1='#181D31' color2="#181D31" text="Sign Up" pad="15px 30px" marg="0"/>
+            <Bbutton xTraStyling=""  buttonType="outlined" color1='#fff' color2="#fff" text="Sign In" pad="15px 30px" marg="0 0 0 40px"/>
           </Box>
+          </ThemeProvider>
           
       
 
@@ -165,6 +192,7 @@ export default function DrawerAppBar() {
 
 
     </div>
+   
    
   );
 }

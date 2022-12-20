@@ -1,6 +1,7 @@
 
-//paragraph color
+//paragraph on white background color
 export const PARAGRAPH_HEXCOLOR:string = "#434242";
+
 
 
 //main green button colors
