@@ -10,6 +10,7 @@ export const  Bbutton = ({buttonType,color1,color2,text,pad,marg,xTraStyling} : 
         backgroundColor: color1,
         '&:hover': {
           backgroundColor: color2,
+          transition:"padding 0.5s ease-in-out"
         },
         outline:"none",
         

@@ -44,7 +44,7 @@ export default function Hero(){
                 <p style={{maxWidth:"35rem",color:PARAGRAPH_HEXCOLOR}}>We got you!,Our business matches service workers with individuals in need of their services. Whether you are a service worker looking for job opportunities or an individual looking for someone to help with a specific task, we will connect you with the right person.</p>
                 
                 <ThemeProvider theme={button}>
-                 <Bbutton buttonType='contained' text="Let's Go" pad="" marg="20px 0 0 0" color1={MAINBUTTON_PRE_HOVER} color2={MAINBUTTON_HOVER} xTraStyling={landingPageCss.getStartedButton}/>
+                 <Bbutton buttonType='contained' text="Let's Go" pad="15px 40px" marg="20px 0 0 0" color1={MAINBUTTON_PRE_HOVER} color2={MAINBUTTON_HOVER} xTraStyling={landingPageCss.getStartedButton}/>
                 </ThemeProvider>
                 </Grid>
 

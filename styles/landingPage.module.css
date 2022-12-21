@@ -8,9 +8,7 @@
 
 
 .getStartedButton{
-    padding:15px 40px;
     transition: transform 0.5s ease-in-out;
-    transition: padding 0.5s ease-in-out;
 }
 
 .getStartedButton:after{
