@@ -6,12 +6,6 @@
 }
 
 
-
-.getStartedButton{
-    transition: transform 0.5s ease-in-out;
-    transition: padding 0.5s ease-in-out;
-}
-
 .getStartedButton:after{
     content: '\0279E';
     position: relative;
@@ -28,7 +22,6 @@
 
 
 .getStartedButton:hover {
-    /* transform: scale(1.1); */
     padding:15px 70px 15px 50px; 
 }
 
