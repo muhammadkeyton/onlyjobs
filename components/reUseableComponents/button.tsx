@@ -8,6 +8,7 @@ export const  Bbutton = ({buttonType,color1,color2,text,pad,marg,xTraStyling} : 
     const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
         color: theme.palette.getContrastText(color1),
         backgroundColor: color1,
+        transition:"padding 0.5s ease-in-out",
         '&:hover': {
           backgroundColor: color2,
         },

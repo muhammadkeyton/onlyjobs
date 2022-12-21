@@ -17,10 +17,21 @@ import { Bbutton } from '../reUseableComponents/button';
 import { PARAGRAPH_HEXCOLOR,MAINBUTTON_HOVER,MAINBUTTON_PRE_HOVER } from '../componentConstants/textColors';
 
 
+//font for the lets go button
+import {createTheme,ThemeProvider} from '@mui/material/styles';
 const poppins = Poppins({
     weight: '400',
     subsets: ['latin'],
 })
+
+const button = createTheme({
+    typography: {
+      fontFamily: [
+        poppins.style.fontFamily,
+      ].join(','),
+    },
+});
+//----------------------------------------
 
 export default function Hero(){
     return(
@@ -32,7 +43,9 @@ export default function Hero(){
                 <h1>Looking for a job or trying to find a worker?</h1>
                 <p style={{maxWidth:"35rem",color:PARAGRAPH_HEXCOLOR}}>We got you!,Our business matches service workers with individuals in need of their services. Whether you are a service worker looking for job opportunities or an individual looking for someone to help with a specific task, we will connect you with the right person.</p>
                 
-                <Bbutton buttonType='contained' text="Let's Go" pad="15px 40px" marg="20px 0 0 0" color1={MAINBUTTON_PRE_HOVER} color2={MAINBUTTON_HOVER} xTraStyling={`${landingPageCss.getStartedButton} ${poppins.className}`}/>
+                <ThemeProvider theme={button}>
+                 <Bbutton buttonType='contained' text="Let's Go" pad="15px 40px" marg="20px 0 0 0" color1={MAINBUTTON_PRE_HOVER} color2={MAINBUTTON_HOVER} xTraStyling={landingPageCss.getStartedButton}/>
+                </ThemeProvider>
                 </Grid>
 
                 <Grid item xs={12} sm={4} md={4} lg={4} xl={4} order={{ xs: 1, sm: 2,md:2,lg:2,xl:2 }} >

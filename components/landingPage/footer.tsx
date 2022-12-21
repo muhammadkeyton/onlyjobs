@@ -1,6 +1,5 @@
 
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import IconButton from '@mui/material/IconButton';
@@ -8,13 +7,7 @@ import IconButton from '@mui/material/IconButton';
 //css for this component
 import landingPageCss from "../../styles/landingPage.module.css";
 
-import { Ubuntu } from '@next/font/google'
 
-const ubuntu = Ubuntu({
-    weight: '700',
-    style: ['normal', 'italic'],
-    subsets: ['latin'],
-})
 
 export default function Footer (){
     const currentYear = new Date().getFullYear();
@@ -23,9 +16,6 @@ export default function Footer (){
 
             <Grid container spacing={4}>
                 <Grid item xs={6} sm={4} md={4} lg={4} xl={4}>
-                    <Typography className={ubuntu.className} variant="h6">
-                     onlyJobs
-                    </Typography>
                     <p>{currentYear} onlyJobs All Rights Reserved</p>
                 </Grid>
 
