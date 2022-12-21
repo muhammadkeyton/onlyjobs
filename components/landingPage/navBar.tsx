@@ -127,7 +127,7 @@ export default function DrawerAppBar() {
             variant="h6"
             component="div"
             sx={{display: { xs: 'block', sm: 'block' ,color:"black",cursor:"pointer"} }}
-            
+            className={ubuntu.className}
             
           >
             onlyJobs
