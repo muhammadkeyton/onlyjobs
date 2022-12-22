@@ -3,6 +3,7 @@
 .heroContainer{
     text-align: left;
     padding:1.5rem 3rem;  
+    
 }
 
 
@@ -31,7 +32,8 @@
 .servicesContainer{
     text-align: center;
     margin-top:5rem ;
-    padding:1.5rem 3rem;  
+    padding:1.5rem 3rem;
+    
 }
 
 .serviceCard{
@@ -82,6 +84,7 @@
     margin-top:5rem ;
     padding:1.5rem 3rem;
     align-items: center;
+   
      
 }
 
@@ -105,6 +108,21 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
+
+
+@media screen and (max-width:1000px) {
+    .heroContainer{
+        width:100vw;
+    }
+
+    .servicesContainer{
+        width:100vw;
+    }
+
+    .footer{
+        width:100vw;
+    }
 }
 
 
