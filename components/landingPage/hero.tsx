@@ -38,9 +38,10 @@ export default function Hero(){
     return(
         <div className={landingPageCss.heroContainer}>
             
+          
 
-            <Grid container alignItems="center" spacing={4}>
-                <Grid item xs={12} sm={8} md={8} lg={8} xl={8} order={{ xs: 2, sm: 1,md:1,lg:1,xl:1 }}>
+            <Grid container  spacing={{ xs: 4, sm: 4,md:12,lg:25,xl:50 }}>
+                <Grid item xs={12} sm={6} md={6} lg={6} xl={6} order={{ xs: 2, sm: 1,md:1,lg:1,xl:1 }}>
                 <h1>Looking for a job or trying to find a worker?</h1>
                 <p style={{maxWidth:"35rem",color:PARAGRAPH_HEXCOLOR}}>We got you!,Our business matches service workers with individuals in need of their services. Whether you are a service worker looking for job opportunities or an individual looking for someone to help with a specific task, we will connect you with the right person.</p>
                 
@@ -53,7 +54,8 @@ export default function Hero(){
                 </ThemeProvider>
                 </Grid>
 
-                <Grid item xs={12} sm={4} md={4} lg={4} xl={4} order={{ xs: 1, sm: 2,md:2,lg:2,xl:2 }} >
+                <Grid item xs={12} sm={6} md={6} lg={6} xl={6} order={{ xs: 1, sm: 2,md:2,lg:2,xl:2 }} >
+                
                 <Image
                     src="/images/Hero.gif" // Route of the image file
                     height={350} // Desired size with correct aspect ratio
@@ -65,7 +67,7 @@ export default function Hero(){
 
                 </Grid>
                 
-            </Grid>
+            </Grid> 
 
 
             

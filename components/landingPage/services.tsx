@@ -25,7 +25,7 @@ export default function Services(){
         <div id="services" className={landingPageCss.servicesContainer}>
              <h3>Unmatched Services for Your Needs</h3>
 
-
+ 
              <Grid container spacing={2}>
                 <Grid item xs={12} sm={6} md={6} lg={3} xl={3} >
 
@@ -102,7 +102,7 @@ export default function Services(){
 
 
 
-             </Grid>
+             </Grid> 
              
         </div>
     )

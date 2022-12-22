@@ -12,9 +12,9 @@ import landingPageCss from "../../styles/landingPage.module.css";
 export default function Footer (){
     const currentYear = new Date().getFullYear();
     return(
-        <div  className={landingPageCss.footer}>
+        <footer  className={landingPageCss.footer}>
 
-            <Grid container spacing={4}>
+            <Grid container spacing={4} sx={{'& .MuiGrid-root':{width: "auto"}}}>
                 <Grid item xs={6} sm={4} md={4} lg={4} xl={4}>
                     <p>{currentYear} onlyJobs All Rights Reserved</p>
                 </Grid>
@@ -52,11 +52,11 @@ export default function Footer (){
 
 
 
-            </Grid>
+            </Grid> 
 
-
+              
            
        
-        </div>
+        </footer>
     )
 }
