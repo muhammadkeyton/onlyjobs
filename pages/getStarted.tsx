@@ -73,7 +73,7 @@ export default function GetStarted(){
                 
 
                 <div className={getStartedPageCss.cardAnswer}>
-                   <div className={getStartedPageCss.card} onClick={handleWorkerClick}>
+                   <div className={getStartedPageCss.card} onClick={handleWorkerClick} style={workerRole ? { borderColor:MAINBUTTON_PRE_HOVER,borderStyle:"solid" } : {}}>
                         <h4>Job</h4>
 
                         <div className={getStartedPageCss.iconContainer}>
@@ -83,7 +83,7 @@ export default function GetStarted(){
 
                    </div>
 
-                   <div className={getStartedPageCss.card} onClick={handleEmployerClick}>
+                   <div className={getStartedPageCss.card} onClick={handleEmployerClick} style={employerRole ? { borderColor:MAINBUTTON_PRE_HOVER,borderStyle:"solid" } : {}}>
                         <h4>Worker</h4>
                         <div className={getStartedPageCss.iconContainer}>
                           {employerRole && <CheckIcon fontSize="large" sx={{color:"#285430"}}/>}
