@@ -73,7 +73,7 @@ export default function Services(){
                     <div className={landingPageCss.serviceTextContainers} style={{backgroundColor:"#000000"}}>
                         <h4>Fast and Secure payments</h4>
                         <p style={{color:"#D6E4E5"}}>
-                        Paying for services shouldn't be a headache. That's why we offer fast and secure payment options through our platform. You can choose to pay with your credit card or through a secure online payment system, and you'll have the peace of mind knowing that your payment is fully protected.
+                        Paying for services shouldn't be a headache. That's why we offer fast and secure payment options through our platform. You can choose to pay with your credit/debit card,knowing that your payment is fully protected.
                         </p>
                     </div>
                   </Paper>
