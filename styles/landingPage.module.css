@@ -111,19 +111,6 @@
 }
 
 
-@media screen and (max-width:1000px) {
-    .heroContainer{
-        width:100vw;
-    }
-
-    .servicesContainer{
-        width:100vw;
-    }
-
-    .footer{
-        width:100vw;
-    }
-}
 
 
 
