@@ -29,7 +29,7 @@ export default function Footer (){
                         
                         <div style={{textAlign:"center"}}>
                             <h3 style={{margin:"0"}}>Get In Touch</h3>
-                            <a href="#">support@onlyJobs.tech</a>
+                            <a href="#" style={{color:"#59CE8F"}}>support@onlyJobs.tech</a>
                         </div>
                         
 
