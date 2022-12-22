@@ -46,7 +46,7 @@ export default function Hero(){
                 
                 <ThemeProvider theme={button}>
 
-                <Link href="/getStarted" style={{ textDecoration: "none" }}>
+                <Link href="/getStarted" style={{ textDecoration: "none",cursor:"default" }}>
                  <Bbutton buttonType='contained' text="Let's Go" pad="15px 40px" marg="20px 0 0 0" color1={MAINBUTTON_PRE_HOVER} color2={MAINBUTTON_HOVER} xTraStyling={landingPageCss.getStartedButton}/>
                  </Link>
                  

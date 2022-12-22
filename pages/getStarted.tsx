@@ -95,7 +95,7 @@ export default function GetStarted(){
                 </div>
 
                 <div className={getStartedPageCss.buttons}>
-                   <Link href="/" style={{ textDecoration: "none" }}>
+                   <Link href="/" style={{ textDecoration: "none",cursor:"default" }}>
                     <Bbutton buttonType='outlined' color1='#fff' color2="#fff" text="Back" pad="10px 30px" marg="0" xTraStyling="" />
                    </Link>
                     
