@@ -72,7 +72,7 @@ export default function DrawerAppBar() {
 
   const drawer = (
   
-    <Box  onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+    <Box  onClick={handleDrawerToggle} sx={{ textAlign: 'center',backgroundColor:"#FFFFFF" }}>
           <ThemeProvider theme={logo}>
             <Typography className={ubuntu.className} variant="h6" sx={{ my: 2 }}>
             onlyJobs
@@ -118,7 +118,8 @@ export default function DrawerAppBar() {
         flexDirection:"row",
         justifyContent:"space-between",
         alignItems:"center",
-        padding:"1.5rem 3rem",    
+        padding:"1.5rem 3rem",
+        backgroundColor:"#FFFFFF"    
        }}
       >
        
@@ -180,7 +181,7 @@ export default function DrawerAppBar() {
           }}
           sx={{
             display: { md: 'block', lg: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth,backgroundColor:"#FFFFFF" },
           }}
         >
           {drawer}
