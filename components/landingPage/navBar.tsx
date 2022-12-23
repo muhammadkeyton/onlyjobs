@@ -118,7 +118,7 @@ export default function DrawerAppBar() {
         flexDirection:"row",
         justifyContent:"space-between",
         alignItems:"center",
-        padding:"1.5rem 1.5rem",
+        padding:"1.5rem 3rem",
         backgroundColor:"#FFFFFF"    
        }}
       >

@@ -1,6 +1,3 @@
-//next js
-import Link from 'next/link';
-
 
 //react
 import {useState} from "react";
@@ -15,46 +12,55 @@ import Slide from '@mui/material/Slide';
 //custom page css
 import getStartedPageCss from "../styles/getStartedPage.module.css";
 
-import { PARAGRAPH_HEXCOLOR,MAINBUTTON_PRE_HOVER, MAINBUTTON_HOVER } from '../components/componentConstants/textColors';
+import { PARAGRAPH_HEXCOLOR,MAINBUTTON_PRE_HOVER} from '../components/componentConstants/textColors';
 
-//reusable component
-import {Bbutton} from "../components/reUseableComponents/button";
+
+
+
+import ProgressMobileStepper from '../components/getStartedPage/progressStepper';
 
 export default function GetStarted(){
 
     const [role,setRole] = useState(false);
 
-    const [employerRole,setEmployerRole] = useState(false)
 
-    const [workerRole,setWorkerRole] = useState(false)
+    const [userInfo,setUserInfo] = useState({
+        role:"",
 
+    })
+
+    
 
     const handleEmployerClick = ():void =>{
-        setEmployerRole(!employerRole)
-
-        if(role !== true && employerRole !== true){
+        
+        if(role !== true && userInfo.role !== "employer"){
+            setUserInfo({...userInfo,role:"employer"})
             setRole(true)
-        }else if (role == true && employerRole !== true){
-            setRole(true)
-        }else{
+        }else if (role == true && userInfo.role !== "employer"){
+            setUserInfo({...userInfo,role:"employer"})
+        } else if (role == true && userInfo.role == "employer"){
+            setUserInfo({...userInfo,role:""})
             setRole(false)
         }
+        
+        
 
-        setWorkerRole(false)
+        
     }
 
     const handleWorkerClick = ():void =>{
-        setWorkerRole(!workerRole)
-
-        if(role !== true && workerRole !== true){
+        
+        if(role !== true && userInfo.role !== "worker"){
+            setUserInfo({...userInfo,role:"worker"})
             setRole(true)
-        }else if (role == true && workerRole !== true){
-            setRole(true)
-        }else{
+        }else if (role == true && userInfo.role !== "worker"){
+            setUserInfo({...userInfo,role:"worker"})
+        }else if(role === true &&  userInfo.role === "worker" ){
+            setUserInfo({...userInfo,role:""})
             setRole(false)
         }
 
-        setEmployerRole(false)
+        
        
     }
 
@@ -73,20 +79,20 @@ export default function GetStarted(){
                 
 
                 <div className={getStartedPageCss.cardAnswer}>
-                   <div className={getStartedPageCss.card} onClick={handleWorkerClick} style={workerRole ? { borderColor:MAINBUTTON_PRE_HOVER,borderStyle:"solid" } : {}}>
+                   <div className={getStartedPageCss.card} onClick={handleWorkerClick} style={userInfo.role === "worker" ? { borderColor:MAINBUTTON_PRE_HOVER,borderStyle:"solid" } : {}}>
                         <h4>Job</h4>
 
                         <div className={getStartedPageCss.iconContainer}>
-                          {workerRole &&<CheckIcon fontSize="large" sx={{color:"#285430"}}/>}
+                          {(userInfo.role === "worker") &&<CheckIcon fontSize="large" sx={{color:"#285430"}}/>}
                         </div>
 
 
                    </div>
 
-                   <div className={getStartedPageCss.card} onClick={handleEmployerClick} style={employerRole ? { borderColor:MAINBUTTON_PRE_HOVER,borderStyle:"solid" } : {}}>
+                   <div className={getStartedPageCss.card} onClick={handleEmployerClick} style={userInfo.role === "employer" ? { borderColor:MAINBUTTON_PRE_HOVER,borderStyle:"solid" } : {}}>
                         <h4>Worker</h4>
                         <div className={getStartedPageCss.iconContainer}>
-                          {employerRole && <CheckIcon fontSize="large" sx={{color:"#285430"}}/>}
+                          {(userInfo.role === "employer") && <CheckIcon fontSize="large" sx={{color:"#285430"}}/>}
                         </div>
                    </div>
 
@@ -94,13 +100,7 @@ export default function GetStarted(){
                  
                 </div>
 
-                <div className={getStartedPageCss.buttons}>
-                   <Link href="/" style={{ textDecoration: "none",cursor:"default" }}>
-                    <Bbutton buttonType='outlined' color1='#fff' color2="#fff" text="Back" pad="10px 30px" marg="0" xTraStyling="" />
-                   </Link>
-                    
-                   <Bbutton buttonType='contained' color1={MAINBUTTON_PRE_HOVER} color2={MAINBUTTON_HOVER} text="Next" pad="10px 30px" marg="0" xTraStyling={role?"":getStartedPageCss.nextButton} />
-                </div>
+                <ProgressMobileStepper next={role}/>
                 
             
             </Paper> 
