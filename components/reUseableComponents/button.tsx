@@ -2,15 +2,15 @@ import Button,{ ButtonProps } from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 
 
-type ButtonTypes = {
-    buttonType:string,
-    color1:string,
-    color2:string,
-    text:string,
-    pad:string,
-    marg:string,
-    xTraStyling:any,
-    onClick?:()=>void
+interface ButtonTypes {
+    buttonType:string;
+    color1:string;
+    color2:string;
+    text:string;
+    pad:string;
+    marg:string;
+    xTraStyling:any;
+    onClick?:()=>void;
 }
 
   
