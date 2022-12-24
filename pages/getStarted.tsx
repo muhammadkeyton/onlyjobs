@@ -6,7 +6,6 @@ import {useState} from "react";
 import Container from '@mui/material/Container';
 import PsychologyIcon from '@mui/icons-material/Psychology';
 import Paper from '@mui/material/Paper';
-import CheckIcon from '@mui/icons-material/Check';
 import Slide from '@mui/material/Slide';
 
 //custom page css
@@ -16,10 +15,13 @@ import { PARAGRAPH_HEXCOLOR,MAINBUTTON_PRE_HOVER} from '../components/componentC
 
 
 
-
+//components for this page
 import ProgressMobileStepper from '../components/getStartedPage/progressStepper';
+import RoleSelection from "../components/getStartedPage/roleSelection";
 
 export default function GetStarted(){
+
+    const [currentStep,setCurrentStep] = useState(0);
 
     const [role,setRole] = useState(false);
 
@@ -28,8 +30,22 @@ export default function GetStarted(){
         role:"",
 
     })
+    
+    const InformationTobeGathered = [
+        "What are you Looking For?",
+        "What Type of Jobs would you want us to match you with?"
+
+    ]
 
     
+
+   
+    const handleSteps = (num:number):void =>{
+        console.log(num)
+        setCurrentStep(num)
+    }
+
+
 
     const handleEmployerClick = ():void =>{
         
@@ -75,32 +91,42 @@ export default function GetStarted(){
                     <h2>Tell us about yourself</h2>
                 </div>
 
-                <p style={{color:PARAGRAPH_HEXCOLOR,textAlign:"center"}}> What are you Looking For?</p>
+                <p style={{color:PARAGRAPH_HEXCOLOR,textAlign:"center"}}>
+
+                    {   
+                    
+                    (currentStep === 0)?InformationTobeGathered[currentStep]:null 
+                    
+                    }
+
+                    
+                    {   
+                    
+                    (currentStep === 1 && userInfo.role ==="worker" ) && InformationTobeGathered[currentStep]
+                    
+                    }
+
+
+                    {   
+                    
+                    (currentStep === 1 && userInfo.role ==="employer" ) && "employer signup(under development)" 
+                    
+                    }
+
+
+                   
+
+                    
+                </p>
                 
 
-                <div className={getStartedPageCss.cardAnswer}>
-                   <div className={getStartedPageCss.card} onClick={handleWorkerClick} style={userInfo.role === "worker" ? { borderColor:MAINBUTTON_PRE_HOVER,borderStyle:"solid" } : {}}>
-                        <h4>Job</h4>
+                
+                {(currentStep === 0) && <RoleSelection userInfo={userInfo} handleEmployerClick={handleEmployerClick} handleWorkerClick={handleWorkerClick}/>}
+                
+                
+                <ProgressMobileStepper next={role} steps={InformationTobeGathered.length + 1} handleSteps={handleSteps}/>
 
-                        <div className={getStartedPageCss.iconContainer}>
-                          {(userInfo.role === "worker") &&<CheckIcon fontSize="large" sx={{color:"#285430"}}/>}
-                        </div>
-
-
-                   </div>
-
-                   <div className={getStartedPageCss.card} onClick={handleEmployerClick} style={userInfo.role === "employer" ? { borderColor:MAINBUTTON_PRE_HOVER,borderStyle:"solid" } : {}}>
-                        <h4>Worker</h4>
-                        <div className={getStartedPageCss.iconContainer}>
-                          {(userInfo.role === "employer") && <CheckIcon fontSize="large" sx={{color:"#285430"}}/>}
-                        </div>
-                   </div>
-
-
-                 
-                </div>
-
-                <ProgressMobileStepper next={role}/>
+                   
                 
             
             </Paper> 
