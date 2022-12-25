@@ -11,10 +11,11 @@ interface ButtonTypes {
     marg:string;
     xTraStyling:any;
     onClick?:()=>void;
+    disabled?:boolean;
 }
 
   
-export const  Bbutton = ({buttonType,color1,color2,text,pad,marg,xTraStyling,onClick = ()=>{}} : ButtonTypes)=>{
+export const  Bbutton = ({buttonType,color1,color2,text,pad,marg,xTraStyling,onClick = ()=>{},disabled} : ButtonTypes)=>{
     
     const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
         color: theme.palette.getContrastText(color1),
@@ -31,10 +32,10 @@ export const  Bbutton = ({buttonType,color1,color2,text,pad,marg,xTraStyling,onC
     return(
 
         buttonType === "contained" ?
-        (<ColorButton  className = {xTraStyling} variant="contained" onClick={onClick} sx={{textTransform:"none",borderRadius:"25px",padding:`${pad}`,margin:`${marg}`}}>{text}</ColorButton>)
+        (<ColorButton disabled={disabled} className = {xTraStyling} variant="contained" onClick={onClick} sx={{textTransform:"none",borderRadius:"25px",padding:`${pad}`,margin:`${marg}`}}>{text}</ColorButton>)
 
         :
-        <ColorButton  className = {xTraStyling} variant="outlined" onClick={onClick} sx={{textTransform:"none",borderRadius:"25px",padding:`${pad}`,margin:`${marg}`}}>{text}</ColorButton>
+        <ColorButton disabled={disabled} className = {xTraStyling} variant="outlined" onClick={onClick} sx={{textTransform:"none",borderRadius:"25px",padding:`${pad}`,margin:`${marg}`}}>{text}</ColorButton>
     )
 }
 
