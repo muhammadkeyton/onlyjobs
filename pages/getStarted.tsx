@@ -1,6 +1,6 @@
 
 //react
-import {useState} from "react";
+import {useReducer} from "react";
 
 //material ui 
 import Container from '@mui/material/Container';
@@ -19,44 +19,54 @@ import { PARAGRAPH_HEXCOLOR,MAINBUTTON_PRE_HOVER} from '../components/componentC
 import ProgressMobileStepper from '../components/getStartedPage/progressStepper';
 import RoleSelection from "../components/getStartedPage/roleSelection";
 
+
+
+
+//state of this component
+import {STATE,reducer} from "../components/getStartedPage/state"
+import { ROLE,CURRENTSTEP,USERINFO } from "../components/getStartedPage/DispatchTypeConstants";
+import WorkerTagSelection from "../components/getStartedPage/workerTagSelection";
+
+
+
+
 export default function GetStarted(){
+    const [state,dispatch] = useReducer(reducer,STATE);
 
-    const [currentStep,setCurrentStep] = useState(0);
-
-    const [role,setRole] = useState(false);
-
-
-    const [userInfo,setUserInfo] = useState({
-        role:"",
-
-    })
-    
     const InformationTobeGathered = [
         "What are you Looking For?",
-        "What Type of Jobs would you want us to match you with?"
+        "Select the type of jobs you would like us to match you with"
 
     ]
 
     
-
    
     const handleSteps = (num:number):void =>{
-        console.log(num)
-        setCurrentStep(num)
+
+        dispatch({type:CURRENTSTEP,payload:num})
+        
     }
+
 
 
 
     const handleEmployerClick = ():void =>{
         
-        if(role !== true && userInfo.role !== "employer"){
-            setUserInfo({...userInfo,role:"employer"})
-            setRole(true)
-        }else if (role == true && userInfo.role !== "employer"){
-            setUserInfo({...userInfo,role:"employer"})
-        } else if (role == true && userInfo.role == "employer"){
-            setUserInfo({...userInfo,role:""})
-            setRole(false)
+        if(state.role !== true && state.userInfo.role !== "employer"){
+          
+
+            dispatch({type:USERINFO,payload:{role:"employer"}})
+            dispatch({type:ROLE,payload:true})
+            
+        }else if (state.role == true && state.userInfo.role !== "employer"){
+           
+            dispatch({type:USERINFO,payload:{role:"employer"}})
+        } else if (state.role == true && state.userInfo.role == "employer"){
+            
+            dispatch({type:USERINFO,payload:{role:""}})
+
+            dispatch({type:ROLE,payload:false})
+           
         }
         
         
@@ -66,14 +76,22 @@ export default function GetStarted(){
 
     const handleWorkerClick = ():void =>{
         
-        if(role !== true && userInfo.role !== "worker"){
-            setUserInfo({...userInfo,role:"worker"})
-            setRole(true)
-        }else if (role == true && userInfo.role !== "worker"){
-            setUserInfo({...userInfo,role:"worker"})
-        }else if(role === true &&  userInfo.role === "worker" ){
-            setUserInfo({...userInfo,role:""})
-            setRole(false)
+        if(state.role !== true && state.userInfo.role !== "worker"){
+           
+            dispatch({type:USERINFO,payload:{role:"worker"}})
+
+            dispatch({type:ROLE,payload:true})
+            
+        }else if (state.role == true && state.userInfo.role !== "worker"){
+            
+            dispatch({type:USERINFO,payload:{role:"worker"}})
+        }else if(state.role === true &&  state.userInfo.role === "worker" ){
+            
+
+            dispatch({type:USERINFO,payload:{role:""}})
+
+            dispatch({type:ROLE,payload:false})
+            
         }
 
         
@@ -91,25 +109,25 @@ export default function GetStarted(){
                     <h2>Tell us about yourself</h2>
                 </div>
 
-                <p style={{color:PARAGRAPH_HEXCOLOR,textAlign:"center"}}>
+                <p className={getStartedPageCss.changingText}>
 
                     {   
                     
-                    (currentStep === 0)?InformationTobeGathered[currentStep]:null 
+                    (state.currentStep === 0)?InformationTobeGathered[state.currentStep]:null 
                     
                     }
 
                     
                     {   
                     
-                    (currentStep === 1 && userInfo.role ==="worker" ) && InformationTobeGathered[currentStep]
+                    (state.currentStep === 1 && state.userInfo.role ==="worker" ) && InformationTobeGathered[state.currentStep]
                     
                     }
 
 
                     {   
                     
-                    (currentStep === 1 && userInfo.role ==="employer" ) && "employer signup(under development)" 
+                    (state.currentStep === 1 && state.userInfo.role ==="employer" ) && "employer signup(under development)" 
                     
                     }
 
@@ -121,10 +139,11 @@ export default function GetStarted(){
                 
 
                 
-                {(currentStep === 0) && <RoleSelection userInfo={userInfo} handleEmployerClick={handleEmployerClick} handleWorkerClick={handleWorkerClick}/>}
+                {(state.currentStep === 0) && <RoleSelection userInfo={state.userInfo} handleEmployerClick={handleEmployerClick} handleWorkerClick={handleWorkerClick}/>}
                 
+                {(state.currentStep === 1 && state.userInfo.role === "worker") && <WorkerTagSelection/>}
                 
-                <ProgressMobileStepper next={role} steps={InformationTobeGathered.length + 1} handleSteps={handleSteps}/>
+                <ProgressMobileStepper next={state.role} steps={InformationTobeGathered.length} handleSteps={handleSteps}/>
 
                    
                 

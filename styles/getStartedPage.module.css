@@ -3,6 +3,12 @@
     padding:2rem 2rem;
 }
 
+.changingText{
+    color:"#434242";
+    text-align:center;
+    padding:0 2rem;
+}
+
 .cardAnswer{
     margin:3rem 0;
     text-align: center;
@@ -41,4 +47,10 @@ box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 
 .nextButton{
     visibility:hidden
+}
+
+
+
+.tagsContainer{
+    padding:1.5rem 2rem;
 }
