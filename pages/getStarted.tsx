@@ -35,7 +35,7 @@ export default function GetStarted(){
 
     const InformationTobeGathered = [
         "What are you Looking For?",
-        "Select the type of jobs you would like us to match you with"
+        "Tell us the type of jobs you would like us to match you with"
 
     ]
 
