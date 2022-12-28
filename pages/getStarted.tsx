@@ -11,7 +11,7 @@ import Slide from '@mui/material/Slide';
 //custom page css
 import getStartedPageCss from "../styles/getStartedPage.module.css";
 
-import { PARAGRAPH_HEXCOLOR,MAINBUTTON_PRE_HOVER} from '../components/componentConstants/textColors';
+import { MAINBUTTON_PRE_HOVER} from '../components/componentConstants/textColors';
 
 
 
@@ -24,7 +24,7 @@ import RoleSelection from "../components/getStartedPage/roleSelection";
 
 //state of this component
 import {STATE,reducer} from "../components/getStartedPage/state"
-import { ROLE,CURRENTSTEP,USERINFO } from "../components/getStartedPage/DispatchTypeConstants";
+import { ROLE,CURRENT_STEP,UPDATE_USER_ROLE,UPDATE_WORKER_TAGS } from "../components/getStartedPage/DispatchTypeConstants";
 import WorkerTagSelection from "../components/getStartedPage/workerTagSelection";
 
 
@@ -43,8 +43,14 @@ export default function GetStarted(){
    
     const handleSteps = (num:number):void =>{
 
-        dispatch({type:CURRENTSTEP,payload:num})
+        dispatch({type:CURRENT_STEP,payload:num})
         
+    }
+
+
+    const updateWorkerTags = (tags:string[]):void =>{
+        dispatch({type:UPDATE_WORKER_TAGS,payload:tags})
+
     }
 
 
@@ -55,15 +61,15 @@ export default function GetStarted(){
         if(state.role !== true && state.userInfo.role !== "employer"){
           
 
-            dispatch({type:USERINFO,payload:{role:"employer"}})
+            dispatch({type:UPDATE_USER_ROLE,payload:"employer"})
             dispatch({type:ROLE,payload:true})
             
         }else if (state.role == true && state.userInfo.role !== "employer"){
            
-            dispatch({type:USERINFO,payload:{role:"employer"}})
+            dispatch({type:UPDATE_USER_ROLE,payload:"employer"})
         } else if (state.role == true && state.userInfo.role == "employer"){
             
-            dispatch({type:USERINFO,payload:{role:""}})
+            dispatch({type:UPDATE_USER_ROLE,payload:""})
 
             dispatch({type:ROLE,payload:false})
            
@@ -78,17 +84,17 @@ export default function GetStarted(){
         
         if(state.role !== true && state.userInfo.role !== "worker"){
            
-            dispatch({type:USERINFO,payload:{role:"worker"}})
+            dispatch({type:UPDATE_USER_ROLE,payload:"worker"})
 
             dispatch({type:ROLE,payload:true})
             
         }else if (state.role == true && state.userInfo.role !== "worker"){
             
-            dispatch({type:USERINFO,payload:{role:"worker"}})
+            dispatch({type:UPDATE_USER_ROLE,payload:"worker"})
         }else if(state.role === true &&  state.userInfo.role === "worker" ){
             
 
-            dispatch({type:USERINFO,payload:{role:""}})
+            dispatch({type:UPDATE_USER_ROLE,payload:""})
 
             dispatch({type:ROLE,payload:false})
             
@@ -141,7 +147,7 @@ export default function GetStarted(){
                 
                 {(state.currentStep === 0) && <RoleSelection userInfo={state.userInfo} handleEmployerClick={handleEmployerClick} handleWorkerClick={handleWorkerClick}/>}
                 
-                {(state.currentStep === 1 && state.userInfo.role === "worker") && <WorkerTagSelection/>}
+                {(state.currentStep === 1 && state.userInfo.role === "worker") && <WorkerTagSelection workerTags={state.userInfo.workerTags} updateWorkerTags={updateWorkerTags}/>}
                 
                 <ProgressMobileStepper next={state.role} steps={InformationTobeGathered.length} handleSteps={handleSteps}/>
 

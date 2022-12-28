@@ -11,37 +11,58 @@ import CircularProgress from '@mui/material/CircularProgress';
 import getStartedPageCss from "../../styles/getStartedPage.module.css";
 
 
-export default function WorkerTagSelection(){
+//axios
+import * as api from "./axiosGetStartedPage/api";
+
+
+interface workerTagSelectionProps {
+  updateWorkerTags:(tags:string[])=>void;
+  workerTags:string[];
+}
+
+
+export default function WorkerTagSelection({updateWorkerTags,workerTags}:workerTagSelectionProps){
+
     const [workerText,setWorkerText] = useState("");
 
     const [loading,setLoading] = useState(false);
 
-    const [gptResult,setGptResult] = useState<string[]>([]);
+   
     const worker = `using named entity recognition extract the type of jobs mentioned in this text '${workerText.length < 1?null:workerText}' and return as a string,if the text has no jobs or if the text is like this "" return me a string with number 404,if the text has jobs include number 200 in the string separating it with a comma `
+    
+
+   
     const handleSubmitWorkerText = async () => {
 
 
       if (workerText.length < 1) return;
       setWorkerText("")
       setLoading(true)
-      const response = await fetch("/api/getStartedPage/workerJobTags",{
-        method:"POST",
-        body:JSON.stringify({worker}),
-        headers:{'Content-Type':'application/json'}
 
-      })
+      const response = await api.generateWorkerTags(worker)
 
-      const data:{ text: string } = await response.json();
-      
-      if (data.text.includes(',')) {
-        setGptResult(data.text.split(','))
-
-      }else{
-        setGptResult([data.text])
-      }
-      console.log(gptResult)
-
+      const data = response.data.text;
       setLoading(false)
+
+
+      //if response is 404,meaning openai model couldn't give us a string we could use as tags
+      if(data === "\n\n404" ) return;
+      
+      //removes status 200
+      const newData = data.substr(data.indexOf(',') + 1);
+
+
+      const hasComma = newData.includes(",");
+      
+
+      if(hasComma){
+        updateWorkerTags(newData.split(","));
+      }else{
+        updateWorkerTags([newData]);
+      }
+     
+
+      
     };
 
 
@@ -51,39 +72,28 @@ export default function WorkerTagSelection(){
 
 
     return(
-        <>
+       
           <div className={getStartedPageCss.tagsContainer}>
           
           {loading && <Box sx={{ display: 'flex',justifyContent:"center" }}><CircularProgress /></Box>}
-          <TextField value={workerText} id="standard-basic" label="match me with jobs like ......." variant="standard" fullWidth onChange={handleDataChange}    InputProps={{
+          <TextField autoComplete="off"  value={workerText} id="standard-basic" label="match me with jobs like ......." variant="standard" fullWidth onChange={handleDataChange}    InputProps={{
             endAdornment: <InputAdornment position="end"><IconButton onClick={handleSubmitWorkerText}><SendIcon/></IconButton></InputAdornment>,
           }}/>
 
           
-            {gptResult.length > 1 && 
-            
 
-             gptResult.map((result,i)=>{
-
-              if(result === "\n\n404" || result === "\n\n200"){
-                return null;
-              }
-                return <Chip sx={{marginTop:"10px"}} key={i} label={result} variant="outlined" onClick={():void=>{}} />
-            
-              
-             })
-            
-            
-            
-            
-            }
+          {workerTags.map((tag,i)=>{
+            return <Chip label={tag} key={i} variant="outlined" onClick={():void =>{}} />
+          })}
           
           </div>
 
 
+
+
           
           
-        </>
+       
             
         
     )
