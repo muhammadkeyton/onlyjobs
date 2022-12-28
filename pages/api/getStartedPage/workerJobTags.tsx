@@ -2,10 +2,6 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 import { Configuration, OpenAIApi } from "openai";
 
-type jobTags = {
-  name: string
-}
-
 
 const OPENAIAPIKEY = "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"
 
@@ -23,7 +19,7 @@ export default async function handler(req: NextApiRequest,res: NextApiResponse) 
         try{
             const response = await openai.createCompletion({
                 model: "text-davinci-003",
-                prompt: `${req.body.worker}`,
+                prompt: `${req.body}`,
                 temperature: 0,
                 max_tokens: 3000,
                 top_p: 1,

@@ -1,12 +1,13 @@
 
 
-import { ROLE,USERINFO,CURRENTSTEP } from "./DispatchTypeConstants";
+import { ROLE,UPDATE_USER_ROLE,CURRENT_STEP,UPDATE_WORKER_TAGS } from "./DispatchTypeConstants";
 
 export interface stateTypes{
     currentStep:number;
     role:boolean;
     userInfo:{
-        role:string
+        role:string,
+        workerTags:string[]
     };
 }
 
@@ -20,7 +21,8 @@ export const STATE: stateTypes = {
     currentStep:0,
     role:false,
     userInfo:{
-        role:""
+        role:"",
+        workerTags:[]
     }
 }
 
@@ -31,14 +33,26 @@ export const reducer = (state:stateTypes,action:actionTypes):stateTypes =>{
         case ROLE:
             return{...state,role:action.payload}
 
-        case CURRENTSTEP:
+        case CURRENT_STEP:
             return {...state,currentStep:action.payload}
 
         
-        case USERINFO:
+        case UPDATE_USER_ROLE:
             return {
                 ...state,
-                userInfo:action.payload
+                userInfo:{
+                    ...state.userInfo,
+                    role:action.payload
+                }
+            }
+
+        case UPDATE_WORKER_TAGS:
+            return{
+                ...state,
+                userInfo:{
+                    ...state.userInfo,
+                    workerTags:action.payload
+                }
             }
 
          
