@@ -1,9 +1,12 @@
 
 
-export const CURRENT_STEP:string = "CURRENTSTEP";
-export const UPDATE_USER_ROLE:string = "UPDATEUSERROLE";
+export const CURRENT_STEP:string = "CURRENT_STEP";
+export const UPDATE_USER_ROLE:string = "UPDATE_USER_ROLE";
 export const ROLE:string = "ROLE";
-export const UPDATE_WORKER_TAGS:string = "UPDATEWORKERTAGS";
+export const ADD_GENERATED_WORKER_TAGS:string = "ADD_GENERATED_WORKER_TAGS";
+export const ADD_SELECTED_WORKER_TAGS:string = "ADD_SELECTED_WORKER_TAGS";
+export const REMOVE_SELECTED_WORKER_TAGS:string ="REMOVE_SELECTED_WORKER_TAGS";
+export const REMOVE_GENERATED_WORKER_TAG:string = "REMOVE_GENERATED_WORKER_TAG"
 
 
 

@@ -1,13 +1,14 @@
 
 
-import { ROLE,UPDATE_USER_ROLE,CURRENT_STEP,UPDATE_WORKER_TAGS } from "./DispatchTypeConstants";
+import { ROLE,UPDATE_USER_ROLE,CURRENT_STEP,ADD_GENERATED_WORKER_TAGS,ADD_SELECTED_WORKER_TAGS,REMOVE_SELECTED_WORKER_TAGS,REMOVE_GENERATED_WORKER_TAG } from "./DispatchTypeConstants";
 
 export interface stateTypes{
     currentStep:number;
     role:boolean;
     userInfo:{
-        role:string,
-        workerTags:string[]
+        role:string;
+        generatedWorkerTags:string[];
+        selectedWorkerTags:string[];
     };
 }
 
@@ -22,7 +23,9 @@ export const STATE: stateTypes = {
     role:false,
     userInfo:{
         role:"",
-        workerTags:[]
+        generatedWorkerTags:[],
+        selectedWorkerTags:[]
+        
     }
 }
 
@@ -46,12 +49,39 @@ export const reducer = (state:stateTypes,action:actionTypes):stateTypes =>{
                 }
             }
 
-        case UPDATE_WORKER_TAGS:
+        case ADD_GENERATED_WORKER_TAGS:
             return{
                 ...state,
                 userInfo:{
                     ...state.userInfo,
-                    workerTags:action.payload
+                    generatedWorkerTags:action.payload
+                }
+            }
+        
+        case REMOVE_GENERATED_WORKER_TAG:
+            return{
+                ...state,
+                userInfo:{
+                    ...state.userInfo,
+                    generatedWorkerTags:state.userInfo.generatedWorkerTags.filter((tag)=> tag !== action.payload)
+                }
+            }
+
+        case ADD_SELECTED_WORKER_TAGS:
+            return{
+                ...state,
+                userInfo:{
+                    ...state.userInfo,
+                    selectedWorkerTags:[...state.userInfo.selectedWorkerTags,action.payload]
+                }
+            }
+
+        case REMOVE_SELECTED_WORKER_TAGS:
+            return{
+                ...state,
+                userInfo:{
+                    ...state.userInfo,
+                    selectedWorkerTags:state.userInfo.selectedWorkerTags.filter((tag) => tag !== action.payload)
                 }
             }
 

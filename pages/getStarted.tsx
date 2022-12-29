@@ -24,7 +24,7 @@ import RoleSelection from "../components/getStartedPage/roleSelection";
 
 //state of this component
 import {STATE,reducer} from "../components/getStartedPage/state"
-import { ROLE,CURRENT_STEP,UPDATE_USER_ROLE,UPDATE_WORKER_TAGS } from "../components/getStartedPage/DispatchTypeConstants";
+import { ROLE,CURRENT_STEP,UPDATE_USER_ROLE,ADD_GENERATED_WORKER_TAGS,ADD_SELECTED_WORKER_TAGS,REMOVE_SELECTED_WORKER_TAGS, REMOVE_GENERATED_WORKER_TAG} from "../components/getStartedPage/DispatchTypeConstants";
 import WorkerTagSelection from "../components/getStartedPage/workerTagSelection";
 
 
@@ -35,7 +35,7 @@ export default function GetStarted(){
 
     const InformationTobeGathered = [
         "What are you Looking For?",
-        "Tell us the type of jobs you would like us to match you with"
+        "Tell us the type of job/jobs you would like us to match you with and our smart AI will generate you some job tags,you can write a normal sentence"
 
     ]
 
@@ -48,9 +48,25 @@ export default function GetStarted(){
     }
 
 
-    const updateWorkerTags = (tags:string[]):void =>{
-        dispatch({type:UPDATE_WORKER_TAGS,payload:tags})
+    const addGeneratedWorkerTags = (tags:string[]):void =>{
+        dispatch({type:ADD_GENERATED_WORKER_TAGS,payload:tags})
 
+    }
+
+    const removeGeneratedWorkerTag = (tag:string):void =>{
+        dispatch({type:REMOVE_GENERATED_WORKER_TAG,payload:tag})
+    }
+
+
+    const updateSelectedWorkerTags = (tag:string):void =>{
+        //checking if state already has this tag so that it is not added more than once
+        if(state.userInfo.selectedWorkerTags.includes(tag)){
+            dispatch({type:REMOVE_SELECTED_WORKER_TAGS,payload:tag})
+        }else{
+            dispatch({type:ADD_SELECTED_WORKER_TAGS,payload:tag})
+        }
+
+        
     }
 
 
@@ -147,7 +163,9 @@ export default function GetStarted(){
                 
                 {(state.currentStep === 0) && <RoleSelection userInfo={state.userInfo} handleEmployerClick={handleEmployerClick} handleWorkerClick={handleWorkerClick}/>}
                 
-                {(state.currentStep === 1 && state.userInfo.role === "worker") && <WorkerTagSelection workerTags={state.userInfo.workerTags} updateWorkerTags={updateWorkerTags}/>}
+                {(state.currentStep === 1 && state.userInfo.role === "worker") && <WorkerTagSelection removeGeneratedWorkerTag={removeGeneratedWorkerTag} userInfo={state.userInfo} addGeneratedWorkerTags={addGeneratedWorkerTags} updateSelectedWorkerTags={updateSelectedWorkerTags}/>}
+                
+                
                 
                 <ProgressMobileStepper next={state.role} steps={InformationTobeGathered.length} handleSteps={handleSteps}/>
 
