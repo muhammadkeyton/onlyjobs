@@ -107,7 +107,7 @@ export default function WorkerTagSelection({addGeneratedWorkerTags,userInfo,upda
         <>
           <div className={getStartedPageCss.tagsContainer}>
           
-          {loading && <Box sx={{ display: 'flex',justifyContent:"center" }}><CircularProgress /></Box>}
+          {loading && <Box sx={{ display: 'flex',justifyContent:"center" }}><CircularProgress color="success" /></Box>}
           
           <TextField sx={{marginBottom:"15px"}} autoComplete="off"  value={workerText} id="standard-basic" label="match me with jobs like ......." variant="standard" fullWidth onChange={handleDataChange}    InputProps={{
             endAdornment: <InputAdornment position="end"><IconButton onClick={handleSubmitWorkerText}><SendIcon/></IconButton></InputAdornment>,

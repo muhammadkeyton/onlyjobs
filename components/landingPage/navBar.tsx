@@ -20,7 +20,7 @@ import { Bbutton } from '../reUseableComponents/button';
 //poppins and ubuntu font for navbar
 
 import { Poppins,Ubuntu} from '@next/font/google'
-
+import Link from 'next/link'
 
 import scrollTo  from 'scroll-to-element';
 
@@ -96,7 +96,12 @@ export default function DrawerAppBar() {
       <Divider />
       <ThemeProvider theme={nav}>
         <List>
-          <Bbutton xTraStyling="" buttonType="contained" color1='#181D31' color2="#181D31" text="Sign Up" pad="15px 30px" marg="0 20px 0 0"/>
+
+          <Link href="/getStarted" style={{ textDecoration: "none",cursor:"default" }}>
+            <Bbutton xTraStyling="" buttonType="contained" color1='#181D31' color2="#181D31" text="Sign Up" pad="15px 30px" marg="0 20px 0 0"/>
+          </Link>
+          
+          
           <Bbutton xTraStyling="" buttonType="outlined" color1='#fff' color2="#fff" text="Sign In" pad="15px 30px" marg="0"/>
         </List>
       </ThemeProvider>
@@ -162,8 +167,14 @@ export default function DrawerAppBar() {
           
           <ThemeProvider theme={nav}>
           <Box  sx={{ display: {  xs:'none',sm:'none',md: 'none', lg: 'block' } }}>
+
+          <Link href="/getStarted" style={{ textDecoration: "none",cursor:"default" }}>
             <Bbutton xTraStyling="" buttonType="contained" color1='#181D31' color2="#181D31" text="Sign Up" pad="15px 30px" marg="0"/>
+          </Link> 
+            
+          <Link href="/signIn" style={{ textDecoration: "none",cursor:"default" }}>
             <Bbutton xTraStyling=""  buttonType="outlined" color1='#fff' color2="#fff" text="Sign In" pad="15px 30px" marg="0 0 0 40px"/>
+          </Link>
           </Box>
           </ThemeProvider>
           
