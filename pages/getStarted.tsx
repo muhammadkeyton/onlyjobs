@@ -1,4 +1,5 @@
-
+//next js
+import Link from 'next/link'
 //react
 import {useReducer} from "react";
 
@@ -19,6 +20,10 @@ import { MAINBUTTON_PRE_HOVER} from '../components/componentConstants/textColors
 import ProgressMobileStepper from '../components/getStartedPage/progressStepper';
 import RoleSelection from "../components/getStartedPage/roleSelection";
 
+import SignUp from "../components/getStartedPage/signUp";
+
+import { Bbutton } from "../components/reUseableComponents/button";
+
 
 
 
@@ -30,12 +35,16 @@ import WorkerTagSelection from "../components/getStartedPage/workerTagSelection"
 
 
 
+
 export default function GetStarted(){
     const [state,dispatch] = useReducer(reducer,STATE);
 
+    const workerStepperSteps = 3;
+    const employerStepperStep = 2;
+
     const InformationTobeGathered = [
         "What are you Looking For?",
-        "Tell us the type of job/jobs you would like us to match you with and our smart AI will generate you some job tags,you can write a normal sentence"
+        "Tell us the type of jobs you would like us to match you with and we will generate you some job tags,you can write a normal sentence"
 
     ]
 
@@ -124,12 +133,23 @@ export default function GetStarted(){
         <Slide direction="up" in={true} mountOnEnter unmountOnExit>
         <Container maxWidth="sm" sx={{marginTop:"3rem",marginBottom:"3rem"}}>
 
-            <Paper elevation={4} sx={{padding:"4rem 0"}}>
+            <Paper elevation={4} sx={{padding:"1.5rem 0"}}>
                 
-                <div className={getStartedPageCss.moreAboutYou}>
-                    <PsychologyIcon sx={{ fontSize: 60,color:MAINBUTTON_PRE_HOVER }}/>
-                    <h2>Tell us about yourself</h2>
-                </div>
+               
+                
+            {(state.userInfo.role === "worker" && state.currentStep === 2) || (state.userInfo.role === "employer" && state.currentStep === 1)?
+            
+            
+            null:
+            
+            <div className={getStartedPageCss.moreAboutYou}>
+                <PsychologyIcon sx={{ fontSize: 60,color:MAINBUTTON_PRE_HOVER }}/>
+                <h2>Tell us about yourself</h2>
+            </div>
+
+            }
+
+                
 
                 <p className={getStartedPageCss.changingText}>
 
@@ -147,11 +167,7 @@ export default function GetStarted(){
                     }
 
 
-                    {   
-                    
-                    (state.currentStep === 1 && state.userInfo.role ==="employer" ) && "employer signup(under development)" 
-                    
-                    }
+                   
 
 
                    
@@ -165,16 +181,25 @@ export default function GetStarted(){
                 
                 {(state.currentStep === 1 && state.userInfo.role === "worker") && <WorkerTagSelection removeGeneratedWorkerTag={removeGeneratedWorkerTag} userInfo={state.userInfo} addGeneratedWorkerTags={addGeneratedWorkerTags} updateSelectedWorkerTags={updateSelectedWorkerTags}/>}
                 
+                {   (state.currentStep === 1 && state.userInfo.role ==="employer" ) && <SignUp/> }
+                {   (state.currentStep === 2 && state.userInfo.role ==="worker" ) && <SignUp/> }
+
                 
-                
-                <ProgressMobileStepper next={state.role} steps={InformationTobeGathered.length} handleSteps={handleSteps}/>
+                <ProgressMobileStepper next={state.role} steps={state.userInfo.role === "worker"?workerStepperSteps:employerStepperStep} handleSteps={handleSteps}/>
 
                    
                 
             
             </Paper> 
-         
 
+            {(state.currentStep === 1 && state.userInfo.role === "employer") || (state.currentStep === 2 && state.userInfo.role ==="worker")
+            
+            ? <div style={{marginTop:"20px",textAlign:"center"}}>Already Have an account? <Link href="/signIn" style={{cursor:"pointer", color:"green"}}>Sign in here</Link> </div>
+
+            :null
+            
+            
+            }
         </Container>
         </Slide>
     )

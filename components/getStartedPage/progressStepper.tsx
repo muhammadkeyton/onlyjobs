@@ -44,7 +44,7 @@ export default function ProgressMobileStepper({next,steps,handleSteps}:stepperPr
       activeStep={activeStep}
       sx={{justifyContent:"space-around",'& .MuiLinearProgress-bar':{backgroundColor:MAINBUTTON_PRE_HOVER}}}
       nextButton={
-        <Bbutton disabled={activeStep === steps-1} onClick={handleNext} buttonType='contained' color1={MAINBUTTON_PRE_HOVER} color2={MAINBUTTON_HOVER} text="Next" pad="10px 30px" marg="0" xTraStyling={next?"":getStartedPageCss.nextButton} />
+        <Bbutton disabled={activeStep === steps-1} onClick={handleNext} buttonType='contained' color1={MAINBUTTON_PRE_HOVER} color2={MAINBUTTON_HOVER} text={activeStep === steps-1?"finish":"next"} pad="10px 30px" marg="0" xTraStyling={next?"":getStartedPageCss.nextButton} />
       }
       backButton={
         activeStep < 1

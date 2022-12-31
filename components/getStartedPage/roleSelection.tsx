@@ -18,7 +18,7 @@ export default function RoleSelection({handleWorkerClick,userInfo,handleEmployer
     return(
         <div className={getStartedPageCss.cardAnswer}>
                    <div className={getStartedPageCss.card} onClick={handleWorkerClick} style={userInfo.role === "worker" ? { borderColor:MAINBUTTON_PRE_HOVER,borderStyle:"solid" } : {}}>
-                        <h4>Job</h4>
+                        <h4>a job</h4>
 
                         <div className={getStartedPageCss.iconContainer}>
                           {(userInfo.role === "worker") &&<CheckIcon fontSize="large" sx={{color:"#285430"}}/>}
@@ -28,7 +28,7 @@ export default function RoleSelection({handleWorkerClick,userInfo,handleEmployer
                    </div>
 
                    <div className={getStartedPageCss.card} onClick={handleEmployerClick} style={userInfo.role === "employer" ? { borderColor:MAINBUTTON_PRE_HOVER,borderStyle:"solid" } : {}}>
-                        <h4>Worker</h4>
+                        <h4>a worker</h4>
                         <div className={getStartedPageCss.iconContainer}>
                           {(userInfo.role === "employer") && <CheckIcon fontSize="large" sx={{color:"#285430"}}/>}
                         </div>
