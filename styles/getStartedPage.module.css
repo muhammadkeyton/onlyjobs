@@ -70,3 +70,15 @@ box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 .password{
     position:relative;
 }
+
+
+.signInRememberForgot{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.remember{
+    display: flex;
+    align-items: center;
+}

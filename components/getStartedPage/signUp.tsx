@@ -1,4 +1,5 @@
-
+//react hook
+import {useState} from "react";
 //material ui
 import LockIcon from '@mui/icons-material/Lock';
 
@@ -24,11 +25,27 @@ import { Bbutton } from '../reUseableComponents/button';
 //custom page css
 import getStartedPageCss from "../../styles/getStartedPage.module.css";
 
+interface signUpProps{
+    handleSignUpDataState:(event:any)=>void;
+    signUpData:{
+        firstName:string;
+        lastName:string;
+        emailAddress:string;
+        password:string,
+        repeatPassword:string,
+    }
+}
 
 
 
+export default function SignUp({handleSignUpDataState,signUpData}:signUpProps){
+    const [showPassword,setShowPassword] = useState(false);
 
-export default function SignUp(){
+    
+    const handlePasswordVisibility = ():void =>{
+        setShowPassword(!showPassword);
+    }
+
     return (
         <>
         <div className={getStartedPageCss.moreAboutYou}>
@@ -40,22 +57,22 @@ export default function SignUp(){
         <Container>
             <Grid container spacing={1}>
                 <Grid item xs={6}>
-                <TextField  autoComplete="off" fullWidth label="First Name*" variant="outlined" id="margin-dense" margin="dense" color="success"/>  
+                <TextField  autoComplete="off" value={signUpData.firstName} onChange={handleSignUpDataState} name="firstName" fullWidth label="First Name*" variant="outlined"  margin="dense" color="success"/>  
                 </Grid>
 
                 <Grid item xs={6}>
-                <TextField autoComplete="off" fullWidth label="Last Name*" variant="outlined" id="margin-dense" margin="dense" color="success"/>  
+                <TextField autoComplete="off" value={signUpData.lastName} onChange={handleSignUpDataState} name="lastName" fullWidth label="Last Name*" variant="outlined"  margin="dense" color="success"/>  
                 </Grid>
             </Grid>
 
 
-            <TextField autoComplete="off" fullWidth label="Email Address*" variant="outlined" id="margin-dense" margin="dense" color="success"/>
+            <TextField autoComplete="off" value={signUpData.emailAddress} onChange={handleSignUpDataState} name="emailAddress" fullWidth label="Email Address*" variant="outlined"  margin="dense" color="success"/>
 
             <div className={getStartedPageCss.password}>
-             <TextField autoComplete="off" fullWidth label="Password*" variant="outlined"  id="margin-dense" margin="dense" color="success"/>
+             <TextField autoComplete="off" value={signUpData.password} onChange={handleSignUpDataState} type={showPassword?"text":"password"} name="password"  fullWidth label="Password*" variant="outlined"  margin="dense" color="success"/>
 
-             <IconButton sx={{position:"absolute",top:"15px",right:"10px"}}>
-                <VisibilityOffIcon/>
+             <IconButton onClick={handlePasswordVisibility} sx={{position:"absolute",top:"15px",right:"10px"}}>
+               {showPassword?<VisibilityIcon/>:<VisibilityOffIcon/>}
              </IconButton>
 
             </div>
@@ -63,10 +80,10 @@ export default function SignUp(){
 
 
             <div className={getStartedPageCss.password}>
-             <TextField autoComplete="off" fullWidth label="Repeat Password*" variant="outlined"  id="margin-dense" margin="dense" color="success"/>
+             <TextField autoComplete="off" name="repeatPassword" value={signUpData.repeatPassword} onChange={handleSignUpDataState} type={showPassword?"text":"password"} fullWidth label="Repeat Password*" variant="outlined"   margin="dense" color="success"/>
 
-             <IconButton sx={{position:"absolute",top:"15px",right:"10px"}}>
-                <VisibilityOffIcon/>
+             <IconButton onClick={handlePasswordVisibility} sx={{position:"absolute",top:"15px",right:"10px"}}>
+                {showPassword?<VisibilityIcon/>:<VisibilityOffIcon/>}
              </IconButton>
 
             </div>
@@ -79,7 +96,7 @@ export default function SignUp(){
             <Divider sx={{marginY:3}}>OR</Divider>
 
             <div className={getStartedPageCss.socialIcons}>
-                
+
                 <Fab sx={{backgroundColor:"#fff"}}>
                     <FcGoogle style={{fontSize:"1.5rem"}}/> 
                 </Fab>
