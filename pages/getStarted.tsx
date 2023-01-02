@@ -29,7 +29,7 @@ import SignUp from "../components/getStartedPage/signUp";
 
 //state of this component
 import {STATE,reducer} from "../components/getStartedPage/state"
-import { ROLE,CURRENT_STEP,UPDATE_USER_ROLE,ADD_GENERATED_WORKER_TAGS,ADD_SELECTED_WORKER_TAGS,REMOVE_SELECTED_WORKER_TAGS, REMOVE_GENERATED_WORKER_TAG} from "../components/getStartedPage/DispatchTypeConstants";
+import { ROLE,CURRENT_STEP,UPDATE_USER_ROLE,ADD_GENERATED_WORKER_TAGS,ADD_SELECTED_WORKER_TAGS,REMOVE_SELECTED_WORKER_TAGS,REMOVE_GENERATED_WORKER_TAG,UPDATE_SIGNUP_DATA} from "../components/getStartedPage/DispatchTypeConstants";
 import WorkerTagSelection from "../components/getStartedPage/workerTagSelection";
 
 
@@ -48,8 +48,15 @@ export default function GetStarted(){
 
     ]
 
-    
-   
+    //function updating signup data,start
+
+    const handleSignUpDataState = (event:any):void =>{
+        const {name,value} = event.target;
+        dispatch({type:UPDATE_SIGNUP_DATA,payload:{name,value}})
+    }
+
+    //function updating signup data end
+
     const handleSteps = (num:number):void =>{
 
         dispatch({type:CURRENT_STEP,payload:num})
@@ -181,8 +188,8 @@ export default function GetStarted(){
                 
                 {(state.currentStep === 1 && state.userInfo.role === "worker") && <WorkerTagSelection removeGeneratedWorkerTag={removeGeneratedWorkerTag} userInfo={state.userInfo} addGeneratedWorkerTags={addGeneratedWorkerTags} updateSelectedWorkerTags={updateSelectedWorkerTags}/>}
                 
-                {   (state.currentStep === 1 && state.userInfo.role ==="employer" ) && <SignUp/> }
-                {   (state.currentStep === 2 && state.userInfo.role ==="worker" ) && <SignUp/> }
+                {   (state.currentStep === 1 && state.userInfo.role ==="employer" ) && <SignUp handleSignUpDataState={handleSignUpDataState} signUpData={state.userInfo}/> }
+                {   (state.currentStep === 2 && state.userInfo.role ==="worker" ) && <SignUp handleSignUpDataState={handleSignUpDataState} signUpData={state.userInfo}/> }
 
                 
                 <ProgressMobileStepper next={state.role} steps={state.userInfo.role === "worker"?workerStepperSteps:employerStepperStep} handleSteps={handleSteps}/>

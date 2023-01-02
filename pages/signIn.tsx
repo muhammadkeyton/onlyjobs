@@ -1,3 +1,10 @@
+//react
+import {useReducer,useState} from "react";
+
+//next js
+import Link from 'next/link'
+
+
 //material ui
 import Slide from '@mui/material/Slide';
 
@@ -16,6 +23,8 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
+import Checkbox from '@mui/material/Checkbox';
+
 
 //react icons
 import { FcGoogle } from "react-icons/fc";
@@ -23,9 +32,29 @@ import { FcGoogle } from "react-icons/fc";
 //custom page css
 import getStartedPageCss from "../styles/getStartedPage.module.css";
 import { Bbutton } from '../components/reUseableComponents/button';
-import Link from 'next/link';
+
+
+
+//state for sign in page
+import { UPDATE_SIGNIN_DATA } from "../components/signInPage/dispatchTypeConstants";
+import {STATE,reducer} from "../components/signInPage/state"
 
 export default function SignIn(){
+    const [state,dispatch] = useReducer(reducer,STATE);
+    const [showPassword,setShowPassword] = useState(false);
+
+
+    const handlePasswordVisibility = ():void =>{
+        setShowPassword(!showPassword)
+    }
+
+
+    const handleUpdateSignInData = (event:any):void =>{
+        const {name,value} = event.target;
+
+        dispatch({type:UPDATE_SIGNIN_DATA,payload:{name,value}})
+    }
+
     return(
         <Slide direction="up" in={true} mountOnEnter unmountOnExit>
 
@@ -40,13 +69,13 @@ export default function SignIn(){
 
                     <Container>
                         
-                        <TextField autoComplete="off" fullWidth label="Email Address*" variant="outlined" id="margin-dense" margin="dense" color="success"/>
+                        <TextField name="emailAddress" value={state.emailAddress} onChange={handleUpdateSignInData} autoComplete="off" fullWidth label="Email Address*" variant="outlined" margin="dense" color="success"/>
 
                         <div className={getStartedPageCss.password}>
-                        <TextField autoComplete="off" fullWidth label="Password*" variant="outlined"  id="margin-dense" margin="dense" color="success"/>
+                        <TextField type={showPassword?"text":"password"} name="password" value={state.password} onChange={handleUpdateSignInData} autoComplete="off" fullWidth label="Password*" variant="outlined"  margin="dense" color="success"/>
 
-                        <IconButton sx={{position:"absolute",top:"15px",right:"10px"}}>
-                            <VisibilityOffIcon/>
+                        <IconButton onClick={handlePasswordVisibility} sx={{position:"absolute",top:"15px",right:"10px"}}>
+                            {showPassword?<VisibilityIcon/>:<VisibilityOffIcon/>}
                         </IconButton>
 
                         </div>
@@ -57,8 +86,22 @@ export default function SignIn(){
             
 
                         <Bbutton xTraStyling="" fullwidth={true} buttonType='contained' color1='#181D31' color2="#181D31" text="Sign In" pad="15px 30px" marg="15px 0"/>
+                        
+
+                        <div className={getStartedPageCss.signInRememberForgot}>
 
                         
+                            <div className={getStartedPageCss.remember}>
+                                <Checkbox color="success"/>
+                                <p>Remember me</p>
+                            </div>
+
+                            <Link href="/signIn" style={{cursor:"pointer", color:"green"}}>forgot password?</Link>
+                            
+
+                        </div>
+
+
                         <Divider sx={{marginY:3}}>OR</Divider>
 
                         <div className={getStartedPageCss.socialIcons}>
