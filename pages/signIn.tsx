@@ -7,16 +7,18 @@ import LockIcon from '@mui/icons-material/Lock';
 
 import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Fab from '@mui/material/Fab';
 
 import TwitterIcon from '@mui/icons-material/Twitter';
-import GoogleIcon from '@mui/icons-material/Google';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+
+
+//react icons
+import { FcGoogle } from "react-icons/fc";
 
 //custom page css
 import getStartedPageCss from "../styles/getStartedPage.module.css";
@@ -60,9 +62,12 @@ export default function SignIn(){
                         <Divider sx={{marginY:3}}>OR</Divider>
 
                         <div className={getStartedPageCss.socialIcons}>
-                            <Fab color="error">
-                            <GoogleIcon />+
+                            
+                            <Fab sx={{backgroundColor:"#fff"}}>
+                             <FcGoogle style={{fontSize:"1.5rem"}}/> 
                             </Fab>
+                            
+                            
                             
                             <Fab sx={{backgroundColor:"#fff"}}>
                             <InstagramIcon sx={{color:"#E4405F"}}/>

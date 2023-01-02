@@ -10,10 +10,12 @@ import IconButton from '@mui/material/IconButton';
 import Fab from '@mui/material/Fab';
 
 import TwitterIcon from '@mui/icons-material/Twitter';
-import GoogleIcon from '@mui/icons-material/Google';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+
+//react icons
+import { FcGoogle } from "react-icons/fc";
 
 //reuseable component
 import { Bbutton } from '../reUseableComponents/button';
@@ -77,8 +79,9 @@ export default function SignUp(){
             <Divider sx={{marginY:3}}>OR</Divider>
 
             <div className={getStartedPageCss.socialIcons}>
-                <Fab color="error">
-                 <GoogleIcon />+
+                
+                <Fab sx={{backgroundColor:"#fff"}}>
+                    <FcGoogle style={{fontSize:"1.5rem"}}/> 
                 </Fab>
                 
                 <Fab sx={{backgroundColor:"#fff"}}>
