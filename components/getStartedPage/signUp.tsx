@@ -38,19 +38,19 @@ export default function SignUp(){
         <Container>
             <Grid container spacing={1}>
                 <Grid item xs={6}>
-                <TextField   fullWidth label="First Name*" variant="outlined" id="margin-dense" margin="dense" color="success"/>  
+                <TextField  autoComplete="off" fullWidth label="First Name*" variant="outlined" id="margin-dense" margin="dense" color="success"/>  
                 </Grid>
 
                 <Grid item xs={6}>
-                <TextField  fullWidth label="Last Name*" variant="outlined" id="margin-dense" margin="dense" color="success"/>  
+                <TextField autoComplete="off" fullWidth label="Last Name*" variant="outlined" id="margin-dense" margin="dense" color="success"/>  
                 </Grid>
             </Grid>
 
 
-            <TextField  fullWidth label="Email Address*" variant="outlined" id="margin-dense" margin="dense" color="success"/>
+            <TextField autoComplete="off" fullWidth label="Email Address*" variant="outlined" id="margin-dense" margin="dense" color="success"/>
 
             <div className={getStartedPageCss.password}>
-             <TextField  fullWidth label="Password*" variant="outlined"  id="margin-dense" margin="dense" color="success"/>
+             <TextField autoComplete="off" fullWidth label="Password*" variant="outlined"  id="margin-dense" margin="dense" color="success"/>
 
              <IconButton sx={{position:"absolute",top:"15px",right:"10px"}}>
                 <VisibilityOffIcon/>
@@ -61,7 +61,7 @@ export default function SignUp(){
 
 
             <div className={getStartedPageCss.password}>
-             <TextField  fullWidth label="Repeat Password*" variant="outlined"  id="margin-dense" margin="dense" color="success"/>
+             <TextField autoComplete="off" fullWidth label="Repeat Password*" variant="outlined"  id="margin-dense" margin="dense" color="success"/>
 
              <IconButton sx={{position:"absolute",top:"15px",right:"10px"}}>
                 <VisibilityOffIcon/>

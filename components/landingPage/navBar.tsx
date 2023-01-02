@@ -101,8 +101,10 @@ export default function DrawerAppBar() {
             <Bbutton xTraStyling="" buttonType="contained" color1='#181D31' color2="#181D31" text="Sign Up" pad="15px 30px" marg="0 20px 0 0"/>
           </Link>
           
+          <Link href="/signIn" style={{ textDecoration: "none",cursor:"default" }}>
+           <Bbutton xTraStyling="" buttonType="outlined" color1='#fff' color2="#fff" text="Sign In" pad="15px 30px" marg="0"/>
+          </Link>
           
-          <Bbutton xTraStyling="" buttonType="outlined" color1='#fff' color2="#fff" text="Sign In" pad="15px 30px" marg="0"/>
         </List>
       </ThemeProvider>
     </Box>
