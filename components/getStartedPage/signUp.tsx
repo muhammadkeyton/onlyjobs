@@ -8,10 +8,10 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Fab from '@mui/material/Fab';
+import Paper from '@mui/material/Paper';
 
 import TwitterIcon from '@mui/icons-material/Twitter';
-import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from '@mui/icons-material/Facebook';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
@@ -97,17 +97,31 @@ export default function SignUp({handleSignUpDataState,signUpData}:signUpProps){
 
             <div className={getStartedPageCss.socialIcons}>
 
-                <Fab sx={{backgroundColor:"#fff"}}>
-                    <FcGoogle style={{fontSize:"1.5rem"}}/> 
-                </Fab>
+                <Paper elevation={2} sx={{display:"flex",alignItems:"center",padding:"10px 15px",cursor:"pointer"}}>
+
+                    <FcGoogle style={{fontSize:"1.5rem",marginRight:"10px"}}/>
+                    Continue with Google
+
+                </Paper>
+
+
+
+                <Paper elevation={2} sx={{display:"flex",alignItems:"center",padding:"10px 15px",margin:"15px 0",cursor:"pointer"}}>
+
+                    <FacebookIcon  sx={{color:"#0165E1",fontSize:"1.5rem",marginRight:"10px"}}/>
+                    Continue with Facebook
+
+                </Paper>
+
+
+
+                <Paper  elevation={2} sx={{display:"flex",alignItems:"center",padding:"10px 15px",margin:"15px 0",cursor:"pointer"}}>
+
                 
-                <Fab sx={{backgroundColor:"#fff"}}>
-                 <InstagramIcon sx={{color:"#E4405F"}}/>
-                </Fab>
-                
-                <Fab sx={{backgroundColor:"#fff"}}>
-                 <TwitterIcon  sx={{color:"#009EFF"}}/>
-                </Fab>
+                    <TwitterIcon  sx={{color:"#009EFF",fontSize:"1.5rem",marginRight:"10px"}}/>
+                    Continue with Twitter
+
+                </Paper>
                
             </div>
         </Container>

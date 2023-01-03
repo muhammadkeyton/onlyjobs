@@ -16,10 +16,10 @@ import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Fab from '@mui/material/Fab';
+
 
 import TwitterIcon from '@mui/icons-material/Twitter';
-import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from '@mui/icons-material/Facebook';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
@@ -83,8 +83,7 @@ export default function SignIn(){
 
 
                         
-            
-
+                        <Link href="/signIn" style={{cursor:"pointer", color:"green"}}>forgot password?</Link>
                         <Bbutton xTraStyling="" fullwidth={true} buttonType='contained' color1='#181D31' color2="#181D31" text="Sign In" pad="15px 30px" marg="15px 0"/>
                         
 
@@ -93,10 +92,10 @@ export default function SignIn(){
                         
                             <div className={getStartedPageCss.remember}>
                                 <Checkbox color="success"/>
-                                <p>Remember me</p>
+                                <p>Remember me for 7 days</p>
                             </div>
 
-                            <Link href="/signIn" style={{cursor:"pointer", color:"green"}}>forgot password?</Link>
+                            
                             
 
                         </div>
@@ -106,19 +105,36 @@ export default function SignIn(){
 
                         <div className={getStartedPageCss.socialIcons}>
                             
-                            <Fab sx={{backgroundColor:"#fff"}}>
-                             <FcGoogle style={{fontSize:"1.5rem"}}/> 
-                            </Fab>
+                            
+                            <Paper elevation={2} sx={{display:"flex",alignItems:"center",padding:"10px 15px",cursor:"pointer"}}>
+
+                             <FcGoogle style={{fontSize:"1.5rem",marginRight:"10px"}}/>
+                              Continue with Google
+
+                            </Paper>
+                             
+
+
+                            <Paper  elevation={2} sx={{display:"flex",alignItems:"center",padding:"10px 15px",margin:"15px 0",cursor:"pointer"}}>
+
+                              <FacebookIcon  sx={{color:"#0165E1",fontSize:"1.5rem",marginRight:"10px"}}/>
+                              Continue with Facebook
+
+                            </Paper>
                             
                             
                             
-                            <Fab sx={{backgroundColor:"#fff"}}>
-                            <InstagramIcon sx={{color:"#E4405F"}}/>
-                            </Fab>
+                            <Paper  elevation={2} sx={{display:"flex",alignItems:"center",padding:"10px 15px",margin:"15px 0",cursor:"pointer"}}>
+
+                              
+                              <TwitterIcon  sx={{color:"#009EFF",fontSize:"1.5rem",marginRight:"10px"}}/>
+                              Continue with Twitter
+
+                            </Paper>
                             
-                            <Fab sx={{backgroundColor:"#fff"}}>
-                            <TwitterIcon  sx={{color:"#009EFF"}}/>
-                            </Fab>
+                            
+                            
+                            
                         
                         </div>
 
