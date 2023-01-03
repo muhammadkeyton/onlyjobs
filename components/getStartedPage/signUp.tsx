@@ -97,7 +97,7 @@ export default function SignUp({handleSignUpDataState,signUpData}:signUpProps){
 
             <div className={getStartedPageCss.socialIcons}>
 
-                <Paper elevation={2} sx={{display:"flex",alignItems:"center",padding:"10px 15px",cursor:"pointer"}}>
+                <Paper elevation={2} className={getStartedPageCss.socialIconsAUth}>
 
                     <FcGoogle style={{fontSize:"1.5rem",marginRight:"10px"}}/>
                     Continue with Google
@@ -106,7 +106,7 @@ export default function SignUp({handleSignUpDataState,signUpData}:signUpProps){
 
 
 
-                <Paper elevation={2} sx={{display:"flex",alignItems:"center",padding:"10px 15px",margin:"15px 0",cursor:"pointer"}}>
+                <Paper elevation={2}   className={getStartedPageCss.socialIconsAUth} sx={{margin:"15px 0"}}>
 
                     <FacebookIcon  sx={{color:"#0165E1",fontSize:"1.5rem",marginRight:"10px"}}/>
                     Continue with Facebook
@@ -115,7 +115,7 @@ export default function SignUp({handleSignUpDataState,signUpData}:signUpProps){
 
 
 
-                <Paper  elevation={2} sx={{display:"flex",alignItems:"center",padding:"10px 15px",margin:"15px 0",cursor:"pointer"}}>
+                <Paper  elevation={2}  className={getStartedPageCss.socialIconsAUth}>
 
                 
                     <TwitterIcon  sx={{color:"#009EFF",fontSize:"1.5rem",marginRight:"10px"}}/>

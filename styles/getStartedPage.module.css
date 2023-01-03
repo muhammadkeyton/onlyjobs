@@ -21,7 +21,7 @@
 box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 transition: 0.3s;
 width:150px;
-cursor: default;
+cursor: pointer;
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -83,4 +83,30 @@ box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 .remember{
     display: flex;
     align-items: center;
+}
+
+
+.socialIconsAUth{
+    display:flex;
+    align-items:center;
+    padding:10px 15px;
+    cursor:pointer;
+}
+
+.socialIconsAUth:hover{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+
+
+
+/* smaller screens */
+@media screen and (max-width: 930px) {
+    .socialIconsAUth{
+        cursor: default;
+    }
+
+    .card{
+        cursor: default;  
+    }
 }
