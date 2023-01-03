@@ -106,31 +106,31 @@ export default function SignIn(){
                         <div className={getStartedPageCss.socialIcons}>
                             
                             
-                            <Paper elevation={2} className={getStartedPageCss.socialIconsAUth}>
+                        <Paper elevation={2} className={getStartedPageCss.socialIconsAUth}>
 
-                            <FcGoogle style={{fontSize:"1.5rem",marginRight:"10px"}}/>
-                            Continue with Google
+                        <FcGoogle style={{fontSize:"1.5rem",marginRight:"10px"}}/>
+                        Continue with Google
 
-                            </Paper>
-
-
-
-                            <Paper elevation={2}   className={getStartedPageCss.socialIconsAUth} sx={{margin:"15px 0"}}>
-
-                            <FacebookIcon  sx={{color:"#0165E1",fontSize:"1.5rem",marginRight:"10px"}}/>
-                            Continue with Facebook
-
-                            </Paper>
+                        </Paper>
 
 
 
-                            <Paper  elevation={2}  className={getStartedPageCss.socialIconsAUth}>
+                        <Paper elevation={2}   className={getStartedPageCss.socialIconsAUth} sx={{margin:"15px 0"}}>
+
+                        <FacebookIcon  sx={{color:"#0165E1",fontSize:"1.5rem",marginRight:"10px"}}/>
+                        Continue with Facebook
+
+                        </Paper>
 
 
-                            <TwitterIcon  sx={{color:"#009EFF",fontSize:"1.5rem",marginRight:"10px"}}/>
-                            Continue with Twitter
 
-                            </Paper>
+                        <Paper  elevation={2}  className={getStartedPageCss.socialIconsAUth}>
+
+
+                        <TwitterIcon  sx={{color:"#009EFF",fontSize:"1.5rem",marginRight:"10px"}}/>
+                        Continue with Twitter
+
+                        </Paper>
                             
                             
                             
