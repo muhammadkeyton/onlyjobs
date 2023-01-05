@@ -142,7 +142,7 @@ export default function SignIn(){
                     <Divider/>
                     
                     <Link href="/" style={{ textDecoration: "none",cursor:"default" }}>
-                     <Bbutton buttonType='outlined' color1='#fff' color2="#fff" text="Back" pad="10px 30px" marg="15px 0 0 10px" xTraStyling=""/>
+                     <Bbutton buttonType='outlined' color1='#fff' color2="#fff" text="Go back home" pad="10px 30px" marg="15px 0 0 10px" xTraStyling=""/>
                     </Link>
                    
 
