@@ -63,7 +63,7 @@ export default function SignIn(){
                 <Paper elevation={4} sx={{padding:"1.5rem 0"}}>
                     <div className={getStartedPageCss.moreAboutYou}>
                         <div className={getStartedPageCss.iconContainer} style={{ margin: "auto"}}><LockIcon color="success"/></div>
-                        <h4>sign in with credentials</h4>
+                        <h4>Welcome back,sign in to your account</h4>
                     </div>
 
 
@@ -109,7 +109,7 @@ export default function SignIn(){
                         <Paper elevation={2} className={getStartedPageCss.socialIconsAUth}>
 
                         <FcGoogle style={{fontSize:"1.5rem",marginRight:"10px"}}/>
-                        Continue with Google
+                         Sign in with Google
 
                         </Paper>
 
@@ -118,7 +118,7 @@ export default function SignIn(){
                         <Paper elevation={2}   className={getStartedPageCss.socialIconsAUth} sx={{margin:"15px 0"}}>
 
                         <FacebookIcon  sx={{color:"#0165E1",fontSize:"1.5rem",marginRight:"10px"}}/>
-                        Continue with Facebook
+                         Sign in with Facebook
 
                         </Paper>
 
@@ -128,7 +128,7 @@ export default function SignIn(){
 
 
                         <TwitterIcon  sx={{color:"#009EFF",fontSize:"1.5rem",marginRight:"10px"}}/>
-                        Continue with Twitter
+                         Sign in with Twitter
 
                         </Paper>
                             

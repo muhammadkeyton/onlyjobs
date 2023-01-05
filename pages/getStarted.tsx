@@ -29,7 +29,7 @@ import SignUp from "../components/getStartedPage/signUp";
 
 //state of this component
 import {STATE,reducer} from "../components/getStartedPage/state"
-import { ROLE,CURRENT_STEP,UPDATE_USER_ROLE,ADD_GENERATED_WORKER_TAGS,ADD_SELECTED_WORKER_TAGS,REMOVE_SELECTED_WORKER_TAGS,REMOVE_GENERATED_WORKER_TAG,UPDATE_SIGNUP_DATA} from "../components/getStartedPage/DispatchTypeConstants";
+import {NEXTSTEP,CURRENT_STEP,UPDATE_USER_ROLE,ADD_GENERATED_WORKER_TAGS,ADD_SELECTED_WORKER_TAGS,REMOVE_SELECTED_WORKER_TAGS,REMOVE_GENERATED_WORKER_TAG,UPDATE_SIGNUP_DATA} from "../components/getStartedPage/DispatchTypeConstants";
 import WorkerTagSelection from "../components/getStartedPage/workerTagSelection";
 
 
@@ -56,6 +56,11 @@ export default function GetStarted(){
     }
 
     //function updating signup data end
+
+    
+    const handleNextStepButton = (proceed:boolean):void =>{
+        dispatch({type:NEXTSTEP,payload:proceed})
+    }
 
     const handleSteps = (num:number):void =>{
 
@@ -90,20 +95,20 @@ export default function GetStarted(){
 
     const handleEmployerClick = ():void =>{
         
-        if(state.role !== true && state.userInfo.role !== "employer"){
+        if(state.nextStep !== true && state.userInfo.role !== "employer"){
           
 
             dispatch({type:UPDATE_USER_ROLE,payload:"employer"})
-            dispatch({type:ROLE,payload:true})
+            dispatch({type:NEXTSTEP,payload:true})
             
-        }else if (state.role == true && state.userInfo.role !== "employer"){
+        }else if (state.nextStep === true && state.userInfo.role !== "employer"){
            
             dispatch({type:UPDATE_USER_ROLE,payload:"employer"})
-        } else if (state.role == true && state.userInfo.role == "employer"){
+        } else if (state.nextStep === true && state.userInfo.role === "employer"){
             
             dispatch({type:UPDATE_USER_ROLE,payload:""})
 
-            dispatch({type:ROLE,payload:false})
+            dispatch({type:NEXTSTEP,payload:false})
            
         }
         
@@ -114,27 +119,30 @@ export default function GetStarted(){
 
     const handleWorkerClick = ():void =>{
         
-        if(state.role !== true && state.userInfo.role !== "worker"){
+        if(state.nextStep !== true && state.userInfo.role !== "worker"){
            
             dispatch({type:UPDATE_USER_ROLE,payload:"worker"})
 
-            dispatch({type:ROLE,payload:true})
+            dispatch({type:NEXTSTEP,payload:true})
             
-        }else if (state.role == true && state.userInfo.role !== "worker"){
+        }else if (state.nextStep === true && state.userInfo.role !== "worker"){
             
             dispatch({type:UPDATE_USER_ROLE,payload:"worker"})
-        }else if(state.role === true &&  state.userInfo.role === "worker" ){
+        }else if(state.nextStep === true &&  state.userInfo.role === "worker" ){
             
 
             dispatch({type:UPDATE_USER_ROLE,payload:""})
 
-            dispatch({type:ROLE,payload:false})
+            dispatch({type:NEXTSTEP,payload:false})
             
         }
 
         
        
     }
+
+   
+    
 
     return(
         <Slide direction="up" in={true} mountOnEnter unmountOnExit>
@@ -186,13 +194,13 @@ export default function GetStarted(){
                 
                 {(state.currentStep === 0) && <RoleSelection userInfo={state.userInfo} handleEmployerClick={handleEmployerClick} handleWorkerClick={handleWorkerClick}/>}
                 
-                {(state.currentStep === 1 && state.userInfo.role === "worker") && <WorkerTagSelection removeGeneratedWorkerTag={removeGeneratedWorkerTag} userInfo={state.userInfo} addGeneratedWorkerTags={addGeneratedWorkerTags} updateSelectedWorkerTags={updateSelectedWorkerTags}/>}
+                {(state.currentStep === 1 && state.userInfo.role === "worker") && <WorkerTagSelection handleNextStep={handleNextStepButton} removeGeneratedWorkerTag={removeGeneratedWorkerTag} userInfo={state.userInfo} addGeneratedWorkerTags={addGeneratedWorkerTags} updateSelectedWorkerTags={updateSelectedWorkerTags}/>}
                 
                 {   (state.currentStep === 1 && state.userInfo.role ==="employer" ) && <SignUp handleSignUpDataState={handleSignUpDataState} signUpData={state.userInfo}/> }
                 {   (state.currentStep === 2 && state.userInfo.role ==="worker" ) && <SignUp handleSignUpDataState={handleSignUpDataState} signUpData={state.userInfo}/> }
 
                 
-                <ProgressMobileStepper next={state.role} steps={state.userInfo.role === "worker"?workerStepperSteps:employerStepperStep} handleSteps={handleSteps}/>
+                <ProgressMobileStepper next={state.nextStep} handleNextStep={handleNextStepButton} steps={state.userInfo.role === "worker"?workerStepperSteps:employerStepperStep} handleSteps={handleSteps}/>
 
                    
                 
