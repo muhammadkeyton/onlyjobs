@@ -59,10 +59,10 @@ export default function ProgressMobileStepper({next,steps,handleSteps,handleNext
         activeStep < 1
 
         ?(<Link href="/" style={{ textDecoration: "none",cursor:"default" }}>
-            <Bbutton buttonType='outlined' color1='#fff' color2="#fff" text="Back" pad="10px 30px" marg="0" xTraStyling="" />
+            <Bbutton buttonType='outlined' color1='#fff' color2="#fff" text="Go back home" pad="10px 30px" marg="0" xTraStyling="" />
          </Link>)
 
-        :(<Bbutton buttonType='outlined' color1='#fff' color2="#fff" text="Back" pad="10px 30px" marg="0" xTraStyling="" onClick={handleBack}/>)
+        :(<Bbutton buttonType='outlined' color1='#fff' color2="#fff" text="previous" pad="10px 30px" marg="0" xTraStyling="" onClick={handleBack}/>)
         
         
       }
