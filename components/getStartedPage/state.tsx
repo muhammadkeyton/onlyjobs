@@ -1,11 +1,11 @@
 
 
 
-import { ROLE,UPDATE_USER_ROLE,CURRENT_STEP,ADD_GENERATED_WORKER_TAGS,ADD_SELECTED_WORKER_TAGS,REMOVE_SELECTED_WORKER_TAGS,REMOVE_GENERATED_WORKER_TAG, UPDATE_SIGNUP_DATA } from "./DispatchTypeConstants";
+import { NEXTSTEP,UPDATE_USER_ROLE,CURRENT_STEP,ADD_GENERATED_WORKER_TAGS,ADD_SELECTED_WORKER_TAGS,REMOVE_SELECTED_WORKER_TAGS,REMOVE_GENERATED_WORKER_TAG, UPDATE_SIGNUP_DATA } from "./DispatchTypeConstants";
 
 export interface stateTypes{
     currentStep:number;
-    role:boolean;
+    nextStep:boolean;
     userInfo:{
         role:string;
         generatedWorkerTags:string[];
@@ -26,7 +26,7 @@ export interface actionTypes{
 
 export const STATE: stateTypes = {
     currentStep:0,
-    role:false,
+    nextStep:false,
     userInfo:{
         role:"",
         generatedWorkerTags:[],
@@ -44,8 +44,8 @@ export const STATE: stateTypes = {
 
 export const reducer = (state:stateTypes,action:actionTypes):stateTypes =>{
     switch(action.type){
-        case ROLE:
-            return{...state,role:action.payload}
+        case NEXTSTEP:
+            return{...state,nextStep:action.payload}
 
         case CURRENT_STEP:
             return {...state,currentStep:action.payload}

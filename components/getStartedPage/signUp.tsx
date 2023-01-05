@@ -24,6 +24,7 @@ import { Bbutton } from '../reUseableComponents/button';
 
 //custom page css
 import getStartedPageCss from "../../styles/getStartedPage.module.css";
+import { sign } from "crypto";
 
 interface signUpProps{
     handleSignUpDataState:(event:any)=>void;
@@ -33,6 +34,7 @@ interface signUpProps{
         emailAddress:string;
         password:string,
         repeatPassword:string,
+        role:string
     }
 }
 
@@ -50,7 +52,18 @@ export default function SignUp({handleSignUpDataState,signUpData}:signUpProps){
         <>
         <div className={getStartedPageCss.moreAboutYou}>
             <div className={getStartedPageCss.iconContainer} style={{ margin: "auto"}}><LockIcon color="success"/></div>
-            <h4>sign up with credentials</h4>
+            <h4>
+                {signUpData.role === "worker"? 
+                
+                `Hey ${signUpData.firstName.length > 0 || signUpData.lastName.length > 0 ? `${signUpData.firstName} ${signUpData.lastName},welcome to onlyJobs` :"worker,We got your job selection,let's now create your account"}` 
+                
+                :
+
+                `Hey ${signUpData.firstName.length > 0 || signUpData.lastName.length > 0 ? `${signUpData.firstName} ${signUpData.lastName},welcome to onlyJobs` :"there,let's now create your account"}`
+                
+                }
+                
+            </h4>
         </div>
         
 
@@ -100,7 +113,7 @@ export default function SignUp({handleSignUpDataState,signUpData}:signUpProps){
                 <Paper elevation={2} className={getStartedPageCss.socialIconsAUth}>
 
                     <FcGoogle style={{fontSize:"1.5rem",marginRight:"10px"}}/>
-                    Continue with Google
+                    Sign up with Google
 
                 </Paper>
 
@@ -109,7 +122,7 @@ export default function SignUp({handleSignUpDataState,signUpData}:signUpProps){
                 <Paper elevation={2}   className={getStartedPageCss.socialIconsAUth} sx={{margin:"15px 0"}}>
 
                     <FacebookIcon  sx={{color:"#0165E1",fontSize:"1.5rem",marginRight:"10px"}}/>
-                    Continue with Facebook
+                    Sign up with Facebook
 
                 </Paper>
 
@@ -119,7 +132,7 @@ export default function SignUp({handleSignUpDataState,signUpData}:signUpProps){
 
                 
                     <TwitterIcon  sx={{color:"#009EFF",fontSize:"1.5rem",marginRight:"10px"}}/>
-                    Continue with Twitter
+                    Sign up with Twitter
 
                 </Paper>
                

@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState,useEffect} from "react";
 import { Poppins} from '@next/font/google';
 
 import Chip from '@mui/material/Chip';
@@ -34,6 +34,7 @@ interface workerTagSelectionProps {
   addGeneratedWorkerTags:(tags:string[])=>void;
   updateSelectedWorkerTags:(tag:string)=>void;
   removeGeneratedWorkerTag:(tag:string)=>void;
+  handleNextStep:(proceed:boolean) => void;
   userInfo:{
     role:string;
     generatedWorkerTags:string[];
@@ -42,7 +43,7 @@ interface workerTagSelectionProps {
 }
 
 
-export default function WorkerTagSelection({addGeneratedWorkerTags,userInfo,updateSelectedWorkerTags,removeGeneratedWorkerTag}:workerTagSelectionProps){
+export default function WorkerTagSelection({addGeneratedWorkerTags,userInfo,updateSelectedWorkerTags,removeGeneratedWorkerTag,handleNextStep}:workerTagSelectionProps){
 
     const defaultTags:string[] = ["pressure washing","lawncare","mobile Car Washing","Curbside Cleaning","roof cleaning"];
 
@@ -79,11 +80,16 @@ export default function WorkerTagSelection({addGeneratedWorkerTags,userInfo,upda
       const newData = data.substr(data.indexOf(',') + 1);
 
 
+
+
+      
+
+
       const hasComma = newData.includes(",");
       
 
       if(hasComma){
-        addGeneratedWorkerTags(newData.split(","));
+        addGeneratedWorkerTags(newData.split(",")); 
       }else{
         addGeneratedWorkerTags([newData]);
       }
@@ -96,6 +102,23 @@ export default function WorkerTagSelection({addGeneratedWorkerTags,userInfo,upda
     const handleDataChange = (e:any)=>{
        setWorkerText(e.target.value)
     }
+
+
+   
+
+
+    
+
+    //next button in worker tags selection 
+    useEffect(() => {
+
+      if(userInfo.selectedWorkerTags.length < 1 && userInfo.generatedWorkerTags.length < 1){
+          handleNextStep(false)
+      } else if (userInfo.selectedWorkerTags.length > 0 || userInfo.generatedWorkerTags.length > 0){
+        handleNextStep(true)
+      }
+
+  }, [userInfo]);
 
 
    
@@ -118,7 +141,13 @@ export default function WorkerTagSelection({addGeneratedWorkerTags,userInfo,upda
               {userInfo.generatedWorkerTags.map((tag,i)=>{
                 return (
                   
-                    <Chip label={tag} key={i} variant="outlined" color="success" onDelete={():void=>{removeGeneratedWorkerTag(tag)}} />
+                    <Chip 
+                        label={tag} 
+                        key={i} 
+                        variant="outlined" 
+                        color="success" 
+                        
+                        onDelete={():void =>  removeGeneratedWorkerTag(tag)} />
                   
                 
                 )
@@ -134,7 +163,13 @@ export default function WorkerTagSelection({addGeneratedWorkerTags,userInfo,upda
           <div className={getStartedPageCss.tagsContainer}>
           <ThemeProvider theme={tagtheme}>
             {defaultTags.map((tag,i)=>{
-              return <Chip label={tag} key={i} color={`${userInfo.selectedWorkerTags.includes(tag)?"success":"default"}`} variant="outlined" onClick={():void=> updateSelectedWorkerTags(tag)} />
+
+              return <Chip label={tag} 
+                           key={i} 
+                           color={`${userInfo.selectedWorkerTags.includes(tag)?"success":"default"}`} 
+                           variant="outlined" 
+                           onClick={():void=>  updateSelectedWorkerTags(tag) } 
+                      />
             })}
           </ThemeProvider>
           </div>

@@ -20,19 +20,28 @@ interface stepperProp {
     next:boolean;
     steps:number;
     handleSteps:(num: number)=> void;
+    handleNextStep:(proceed:boolean) => void;
 }
 
 
-export default function ProgressMobileStepper({next,steps,handleSteps}:stepperProp) {
+export default function ProgressMobileStepper({next,steps,handleSteps,handleNextStep}:stepperProp) {
   const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
     handleSteps(activeStep + 1)
+
+
+    handleNextStep(false)
+
+
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   const handleBack = () => {
     handleSteps(activeStep - 1)
+
+    handleNextStep(true)
+
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
@@ -44,7 +53,7 @@ export default function ProgressMobileStepper({next,steps,handleSteps}:stepperPr
       activeStep={activeStep}
       sx={{justifyContent:"space-around",'& .MuiLinearProgress-bar':{backgroundColor:MAINBUTTON_PRE_HOVER}}}
       nextButton={
-        <Bbutton disabled={activeStep === steps-1} onClick={handleNext} buttonType='contained' color1={MAINBUTTON_PRE_HOVER} color2={MAINBUTTON_HOVER} text={activeStep === steps-1?"finish":"next"} pad="10px 30px" marg="0" xTraStyling={next?"":getStartedPageCss.nextButton} />
+        <Bbutton disabled={activeStep === steps-1} onClick={handleNext} buttonType='contained' color1={MAINBUTTON_PRE_HOVER} color2={MAINBUTTON_HOVER} text={activeStep === steps-1?"":"next"} pad="10px 30px" marg="0" xTraStyling={next?" ":getStartedPageCss.nextButton} />
       }
       backButton={
         activeStep < 1
