@@ -11,3 +11,9 @@ export const UPDATE_SIGNUP_DATA:string = "UPDATE_SIGNUP_DATA";
 
 
 
+//signup fields status
+export const FIELDS_CHECK:string = "FIELDS_CHECK";
+
+
+
+
