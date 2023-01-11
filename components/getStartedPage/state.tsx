@@ -1,7 +1,7 @@
 
 
 
-import { NEXTSTEP,UPDATE_USER_ROLE,CURRENT_STEP,ADD_GENERATED_WORKER_TAGS,ADD_SELECTED_WORKER_TAGS,REMOVE_SELECTED_WORKER_TAGS,REMOVE_GENERATED_WORKER_TAG, UPDATE_SIGNUP_DATA } from "./DispatchTypeConstants";
+import { NEXTSTEP,UPDATE_USER_ROLE,CURRENT_STEP,ADD_GENERATED_WORKER_TAGS,ADD_SELECTED_WORKER_TAGS,REMOVE_SELECTED_WORKER_TAGS,REMOVE_GENERATED_WORKER_TAG, UPDATE_SIGNUP_DATA,FIELDS_CHECK} from "./DispatchTypeConstants";
 
 export interface stateTypes{
     currentStep:number;
@@ -16,6 +16,35 @@ export interface stateTypes{
         password:string;
         repeatPassword:string;
     };
+
+    fields:{
+        firstName:{
+            errorStatus:boolean;
+            errorMessage:string;
+
+        };
+
+        lastName:{
+            errorStatus:boolean,
+            errorMessage:string;
+        };
+
+        emailAddress:{
+            errorStatus:boolean;
+            errorMessage:string;
+        };
+
+
+        password:{
+            errorStatus:boolean;
+            errorMessage:string;
+        };
+
+        repeatPassword:{
+            errorStatus:boolean;
+            errorMessage:string;
+        }
+    }
 }
 
 
@@ -37,7 +66,40 @@ export const STATE: stateTypes = {
         password:"",
         repeatPassword:"",
         
+    },
+
+
+    fields:{
+        firstName:{
+            errorStatus:false,
+            errorMessage:"",
+
+        },
+
+        lastName:{
+            errorStatus:false,
+            errorMessage:"",
+        },
+
+        emailAddress:{
+            errorStatus:false,
+            errorMessage:"",
+        },
+
+
+        password:{
+            errorStatus:false,
+            errorMessage:"",
+        },
+
+        repeatPassword:{
+            errorStatus:false,
+            errorMessage:"",
+        },
     }
+
+
+
 }
 
 
@@ -104,6 +166,22 @@ export const reducer = (state:stateTypes,action:actionTypes):stateTypes =>{
                     [action.payload.name] : action.payload.value
                 }
             }
+
+        case FIELDS_CHECK:
+            //this is the field name in the nested object
+            const [key] = Object.keys(action.payload);
+            
+            return{
+                ...state,
+                fields:{
+                    ...state.fields,
+                    [key]:action.payload[key]
+                    
+                    
+                }
+            }
+
+        
 
          
         default:
