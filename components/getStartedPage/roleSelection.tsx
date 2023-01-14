@@ -3,7 +3,7 @@ import CheckIcon from '@mui/icons-material/Check';
 
 import getStartedPageCss from "../../styles/getStartedPage.module.css";
 
-import { MAINBUTTON_PRE_HOVER } from '../componentConstants/textColors';
+import { MAINBUTTON_PRE_HOVER } from '../componentConstants/greenButtonColors';
 
 interface roleProps{
     userInfo:{

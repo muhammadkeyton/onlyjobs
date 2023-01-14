@@ -12,7 +12,7 @@ import getStartedPageCss from "../../styles/getStartedPage.module.css";
 import { Bbutton } from "../reUseableComponents/button";
 
 
-import { MAINBUTTON_PRE_HOVER, MAINBUTTON_HOVER } from "../componentConstants/textColors";
+import { MAINBUTTON_PRE_HOVER, MAINBUTTON_HOVER } from "../componentConstants/greenButtonColors";
 
 
 
@@ -59,7 +59,7 @@ export default function ProgressMobileStepper({next,steps,handleSteps,handleNext
         activeStep < 1
 
         ?(<Link href="/" style={{ textDecoration: "none",cursor:"default" }}>
-            <Bbutton buttonType='outlined' color1='#fff' color2="#fff" text="back home" pad="10px 30px" marg="0" xTraStyling="" />
+            <Bbutton buttonType='outlined' color1='#fff' color2="#fff" text="home" pad="10px 30px" marg="0" xTraStyling="" />
          </Link>)
 
         :(<Bbutton buttonType='outlined' color1='#fff' color2="#fff" text="previous" pad="10px 30px" marg="0" xTraStyling="" onClick={handleBack}/>)

@@ -28,8 +28,10 @@ import getStartedPageCss from "../../styles/getStartedPage.module.css";
 
 interface signUpProps{
     handleSignUpDataState:(event:any)=>void;
-    checkEmptyFields:(obj:{[key:string]:string}) => void;
-    emojiCheck:(obj:{[key:string]:string}) => void;
+    checkEmptyFieldsPassed:(obj:{[key:string]:string}) => boolean;
+    passwordCheckPassed:(obj:{[key:string]:string}) => boolean;
+    emailCheckPassed:(email:string) => boolean;
+    checkNamePassed:(firstName:string,lastName:string) => boolean;
     signUpData:{
         firstName:string;
         lastName:string;
@@ -48,7 +50,7 @@ interface signUpProps{
 
 
 
-export default function SignUp({handleSignUpDataState,signUpData,checkEmptyFields,signUpFields,emojiCheck}:signUpProps){
+export default function SignUp({handleSignUpDataState,signUpData,checkEmptyFieldsPassed,signUpFields,passwordCheckPassed,checkNamePassed,emailCheckPassed}:signUpProps){
 
     const {firstName,lastName,emailAddress,password,repeatPassword} = signUpData;
 
@@ -67,35 +69,45 @@ export default function SignUp({handleSignUpDataState,signUpData,checkEmptyField
     
 
     const handle_SignUpData_Submit = ():void =>{
+        
         //trimmed fields data,removes spaces
         const fieldObject = {firstName:firstName.trim(),lastName:lastName.trim(),emailAddress:emailAddress.trim(),password:password.trim(),repeatPassword:repeatPassword.trim()};
 
         //check the specific field that is empty and return an array containing all empty fields and set it's error to true if it is empty
-        checkEmptyFields(fieldObject)
-
-        
-        //check if all fields contain emojis
-        emojiCheck(fieldObject)
-
+        if(!checkEmptyFieldsPassed(fieldObject)) return;
         
 
+        //check if name is not letter
+        if(!checkNamePassed(firstName,lastName)) return;
 
+
+        //check email address
+        if(!emailCheckPassed(emailAddress)) return;
+        
+        //check if these fields contain emojis
+        if(!passwordCheckPassed({password,repeatPassword})) return;
+
+    
+        
+
+        
         
 
     }
 
     return (
         <>
+        
         <div className={getStartedPageCss.moreAboutYou}>
             <div className={getStartedPageCss.iconContainer} style={{ margin: "auto"}}><LockIcon color="success"/></div>
             <h4>
                 {signUpData.role === "worker"? 
                 
-                `Hey ${signUpData.firstName.length > 0 || signUpData.lastName.length > 0 ? `${signUpData.firstName} ${signUpData.lastName},welcome to onlyJobs` :"worker,We got your job selection,let's now create your account"}` 
+                `Hey ${signUpData.firstName.length > 0 || signUpData.lastName.length > 0 ? `${signUpData.firstName.substring(0, 15)} ${signUpData.lastName.substring(0, 15)},welcome to onlyJobs` :"worker,We got your job selection,let's now create your account"}` 
                 
                 :
 
-                `Hey ${signUpData.firstName.length > 0 || signUpData.lastName.length > 0 ? `${signUpData.firstName} ${signUpData.lastName},welcome to onlyJobs` :"there,let's now create your account"}`
+                `Hey ${signUpData.firstName.length > 0 || signUpData.lastName.length > 0 ? `${signUpData.firstName.substring(0, 15)} ${signUpData.lastName.substring(0, 15)},welcome to onlyJobs` :"there,let's now create your account"}`
                 
                 }
                 
@@ -104,37 +116,39 @@ export default function SignUp({handleSignUpDataState,signUpData,checkEmptyField
         
 
         <Container>
-            <Grid container spacing={1}>
-                <Grid item xs={6}>
-                <TextField error={signUpFields.firstName.errorStatus} helperText={signUpFields.firstName.errorMessage} autoComplete="off" value={signUpData.firstName} onChange={handleSignUpDataState} name="firstName" fullWidth label="First Name*" variant="outlined"  margin="dense" color="success"/>  
+            <div id="signUpContainer">
+                <Grid container spacing={1}>
+                    <Grid item xs={6}>
+                    <TextField error={signUpFields.firstName.errorStatus} helperText={signUpFields.firstName.errorMessage} autoComplete="off" value={signUpData.firstName} onChange={handleSignUpDataState} name="firstName" id="firstName" fullWidth label="First Name*" variant="outlined"  margin="dense" color="success"/>  
+                    </Grid>
+
+                    <Grid item xs={6}>
+                    <TextField error={signUpFields.lastName.errorStatus} helperText={signUpFields.lastName.errorMessage} autoComplete="off" value={signUpData.lastName} onChange={handleSignUpDataState} name="lastName" id="lastName" fullWidth label="Last Name*" variant="outlined"  margin="dense" color="success"/>  
+                    </Grid>
                 </Grid>
 
-                <Grid item xs={6}>
-                <TextField error={signUpFields.lastName.errorStatus} helperText={signUpFields.lastName.errorMessage} autoComplete="off" value={signUpData.lastName} onChange={handleSignUpDataState} name="lastName" fullWidth label="Last Name*" variant="outlined"  margin="dense" color="success"/>  
-                </Grid>
-            </Grid>
 
+                <TextField error={signUpFields.emailAddress.errorStatus} helperText={signUpFields.emailAddress.errorMessage} autoComplete="off" value={signUpData.emailAddress} onChange={handleSignUpDataState} name="emailAddress" id="emailAddress" fullWidth label="Email Address*" variant="outlined"  margin="dense" color="success"/>
 
-            <TextField error={signUpFields.emailAddress.errorStatus} helperText={signUpFields.emailAddress.errorMessage} autoComplete="off" value={signUpData.emailAddress} onChange={handleSignUpDataState} name="emailAddress" fullWidth label="Email Address*" variant="outlined"  margin="dense" color="success"/>
+                <div className={getStartedPageCss.password}>
+                <TextField  error={signUpFields.password.errorStatus} helperText={signUpFields.password.errorMessage} label="Password*" autoComplete="off" value={signUpData.password} onChange={handleSignUpDataState} type={showPassword?"text":"password"} name="password" id="password" fullWidth variant="outlined"  margin="dense" color="success"/>
 
-            <div className={getStartedPageCss.password}>
-             <TextField error={signUpFields.password.errorStatus} helperText={signUpFields.password.errorMessage} label="Password*" autoComplete="off" value={signUpData.password} onChange={handleSignUpDataState} type={showPassword?"text":"password"} name="password"  fullWidth variant="outlined"  margin="dense" color="success"/>
-
-             <IconButton onClick={handlePasswordVisibility} sx={{position:"absolute",top:"15px",right:"10px"}}>
-               {showPassword?<VisibilityIcon/>:<VisibilityOffIcon/>}
-             </IconButton>
-
-            </div>
-
-
-
-            <div className={getStartedPageCss.password}>
-             <TextField error={signUpFields.repeatPassword.errorStatus} helperText={signUpFields.repeatPassword.errorMessage} autoComplete="off" name="repeatPassword" value={signUpData.repeatPassword} onChange={handleSignUpDataState} type={showPassword?"text":"password"} fullWidth label="Repeat Password*" variant="outlined"   margin="dense" color="success"/>
-
-             <IconButton onClick={handlePasswordVisibility} sx={{position:"absolute",top:"15px",right:"10px"}}>
+                <IconButton onClick={handlePasswordVisibility} sx={{position:"absolute",top:"15px",right:"10px"}}>
                 {showPassword?<VisibilityIcon/>:<VisibilityOffIcon/>}
-             </IconButton>
+                </IconButton>
 
+                </div>
+
+
+
+                <div className={getStartedPageCss.password}>
+                <TextField error={signUpFields.repeatPassword.errorStatus} helperText={signUpFields.repeatPassword.errorMessage} autoComplete="off" name="repeatPassword" id="repeatPassword" value={signUpData.repeatPassword} onChange={handleSignUpDataState} type={showPassword?"text":"password"}  fullWidth label="Repeat Password*" variant="outlined"   margin="dense" color="success"/>
+
+                <IconButton onClick={handlePasswordVisibility} sx={{position:"absolute",top:"15px",right:"10px"}}>
+                    {showPassword?<VisibilityIcon/>:<VisibilityOffIcon/>}
+                </IconButton>
+
+                </div>
             </div>
            
            
@@ -176,6 +190,8 @@ export default function SignUp({handleSignUpDataState,signUpData,checkEmptyField
         </Container>
             
       
+       
+
        
 
         </>

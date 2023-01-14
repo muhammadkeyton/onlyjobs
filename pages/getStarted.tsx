@@ -12,7 +12,7 @@ import Slide from '@mui/material/Slide';
 //custom page css
 import getStartedPageCss from "../styles/getStartedPage.module.css";
 
-import { MAINBUTTON_PRE_HOVER} from '../components/componentConstants/textColors';
+import { MAINBUTTON_PRE_HOVER} from '../components/componentConstants/greenButtonColors';
 
 
 
@@ -26,6 +26,13 @@ import SignUp from "../components/getStartedPage/signUp";
 
 //emoji detection in signUp data
 import emojiRegex from "emoji-regex";
+
+//email validator
+import * as EmailValidator from 'email-validator';
+
+
+//scroll to errors
+import scrollTo  from 'scroll-to-element';
 
 
 
@@ -67,12 +74,12 @@ export default function GetStarted(){
 
         //updating signUp fields state,this is for showing error after the checks
     
-    const checkEmptyFields = (obj:{
+    const checkEmptyFieldsPassed = (obj:{
 
         //The index signature [key: string]: string specifies that the object has properties with string keys and string values. This allows TypeScript to infer the types of the object's properties and avoid error.
         [key:string]:string
 
-    }):void => {
+    }):boolean => {
         let allFields:string[] = ["firstName","lastName","emailAddress","password","repeatPassword"];
         let emptyFields:string[] = [];
 
@@ -100,7 +107,7 @@ export default function GetStarted(){
         
         if (emptyFields.length > 0){
             
-            
+            scrollTo("#signUpContainer")
             emptyFields.forEach( (emptyField)=> dispatch(
 
                 {type:FIELDS_CHECK,payload:{ [emptyField]:{errorStatus:true, errorMessage:`${emptyField} is required!`} } }
@@ -108,14 +115,20 @@ export default function GetStarted(){
                 
                 
             ));
+           
+            return false;
         }
+        
+        return true;
+        
     }
 
 
 
-    //checking emojis in all fields
+    //password field check
     const regex = emojiRegex();
-    const emojiCheck = (obj:{[key:string]:string}):void =>{
+    const passwordCheckPassed = (obj:{[key:string]:string}):boolean =>{
+        const {password,repeatPassword} = obj;
         let fieldsWithEmojis:string[] = [];
         let kaomojiRegex = /\(.*\)/g;
 
@@ -137,16 +150,107 @@ export default function GetStarted(){
 
 
         if(fieldsWithEmojis.length > 0){
-
+            scrollTo("#password")
             fieldsWithEmojis.forEach((emojiField)=>{ 
 
                dispatch({type:FIELDS_CHECK,payload:{ [emojiField]:{errorStatus:true, errorMessage:`${emojiField} has an emoji or kaomoji,please remove it!`} } })
-
+               
             })
+
+            return false;
+
+            
 
         }
 
 
+        //check passwords
+
+        if (password.length > 0 && repeatPassword.length > 0){
+
+            let passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&.]).{12,}$/
+
+
+
+             //check password length and upper case and number and symbol
+             if (!passwordRegex.test(password)){
+
+                scrollTo("#password")
+                dispatch({type:FIELDS_CHECK,payload:{ password:{errorStatus:true, errorMessage:`${password.length < 12?`your password length is:${password.length} chars,passwords should be atleast 12 characters long and`:'your password length is ok but your password'} must contain 1 uppercase letter,1 number and 1 of these symbols @$!%*#?&. `} } })
+                dispatch({type:FIELDS_CHECK,payload:{ repeatPassword:{errorStatus:true, errorMessage:`${password.length < 12?`your password length is:${password.length} chars,passwords should be atleast 12 characters long and`:'your password length is ok but your password'} must contain 1 uppercase letter,1 number and 1 of these symbols @$!%*#?&. `} } })  
+                return false  
+            }
+
+            //check password match
+            if (password !== repeatPassword){
+
+                scrollTo("#password")
+                dispatch({type:FIELDS_CHECK,payload:{ password:{errorStatus:true, errorMessage:`passwords don't match,try again`} } })
+                dispatch({type:FIELDS_CHECK,payload:{ repeatPassword:{errorStatus:true, errorMessage:`passwords don't match,try again`} } })  
+                return false
+            } 
+            
+           
+
+            //check password length to avoid denial of service attack
+            if(password.length > 100){
+
+                scrollTo("#password")
+                dispatch({type:FIELDS_CHECK,payload:{ password:{errorStatus:true, errorMessage:`this password is very long,we only allow a maximum number of 100 characters,your password is ${password.length} characters`} } })
+                dispatch({type:FIELDS_CHECK,payload:{ repeatPassword:{errorStatus:true, errorMessage:`this password is very long,we only allow a maximum number of 100 characters,your password is ${password.length} characters`} } }) 
+                return false;
+            }
+        }
+
+        return true;
+
+
+    }
+
+
+    //first name and last name check to only have letters
+
+    const checkNamePassed = (firstName:string,lastName:string):boolean =>{
+        const letterRegex = /^[A-Za-z]+$/;
+        const firstNameAccepted = letterRegex.test(firstName)
+        const lastNameAccepted = letterRegex.test(lastName)
+
+        if(!firstNameAccepted && firstName.length > 0){
+            scrollTo("#firstName")
+            dispatch({type:FIELDS_CHECK,payload:{ firstName:{errorStatus:true, errorMessage:`this first name is not acceptable,please remove any spaces or symbols and make sure to use letters only`} } })
+        }else if(firstNameAccepted && firstName.length > 0){
+            dispatch({type:FIELDS_CHECK,payload:{ firstName:{errorStatus:false, errorMessage:""} } }) 
+        }
+
+        if(!lastNameAccepted && lastName.length > 0){
+            scrollTo("#lastName")
+            dispatch({type:FIELDS_CHECK,payload:{ lastName:{errorStatus:true, errorMessage:`this last name is not acceptable,please remove any spaces or symbols and make sure to use letters only`} } }) 
+        }else if(lastNameAccepted && lastName.length > 0){
+            dispatch({type:FIELDS_CHECK,payload:{ lastName:{errorStatus:false, errorMessage:""} } })
+        }
+
+
+        if (firstNameAccepted && lastNameAccepted && lastName.length > 0 && firstName.length > 0){
+            return true
+        }else{
+            scrollTo("#signUpContainer")
+            return false
+        }
+    }
+
+
+    //email check
+
+    const emailCheckPassed = (email:string):boolean =>{
+        let email_is_ok = EmailValidator.validate(email);
+
+        if(!email_is_ok) {
+            scrollTo("#emailAddress")
+            dispatch({type:FIELDS_CHECK,payload:{ emailAddress:{errorStatus:true, errorMessage:"hmmm🤔,something is wrong with this email,please provide a valid email address"} } })
+            return false
+        };
+
+        return true
     }
 
     
@@ -302,8 +406,8 @@ export default function GetStarted(){
                 
                 {(state.currentStep === 1 && state.userInfo.role === "worker") && <WorkerTagSelection handleNextStep={handleNextStepButton} removeGeneratedWorkerTag={removeGeneratedWorkerTag} userInfo={state.userInfo} addGeneratedWorkerTags={addGeneratedWorkerTags} updateSelectedWorkerTags={updateSelectedWorkerTags}/>}
                 
-                {   (state.currentStep === 1 && state.userInfo.role ==="employer" ) && <SignUp checkEmptyFields={checkEmptyFields}  emojiCheck={emojiCheck} handleSignUpDataState={handleSignUpDataState} signUpData={state.userInfo} signUpFields={state.fields}/> }
-                {   (state.currentStep === 2 && state.userInfo.role ==="worker" ) && <SignUp checkEmptyFields={checkEmptyFields} emojiCheck={emojiCheck} handleSignUpDataState={handleSignUpDataState} signUpData={state.userInfo} signUpFields={state.fields}/> }
+                {   (state.currentStep === 1 && state.userInfo.role ==="employer" ) && <SignUp checkEmptyFieldsPassed={checkEmptyFieldsPassed}  passwordCheckPassed={passwordCheckPassed} checkNamePassed={checkNamePassed} emailCheckPassed={emailCheckPassed} handleSignUpDataState={handleSignUpDataState} signUpData={state.userInfo} signUpFields={state.fields}/> }
+                {   (state.currentStep === 2 && state.userInfo.role ==="worker" ) && <SignUp checkEmptyFieldsPassed={checkEmptyFieldsPassed} passwordCheckPassed={passwordCheckPassed} checkNamePassed={checkNamePassed} emailCheckPassed={emailCheckPassed} handleSignUpDataState={handleSignUpDataState} signUpData={state.userInfo} signUpFields={state.fields}/> }
 
                 
                 <ProgressMobileStepper next={state.nextStep} handleNextStep={handleNextStepButton} steps={state.userInfo.role === "worker"?workerStepperSteps:employerStepperStep} handleSteps={handleSteps}/>
