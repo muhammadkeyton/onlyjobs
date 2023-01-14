@@ -15,7 +15,7 @@ import landingPageCss from "../../styles/landingPage.module.css";
 import { Bbutton } from '../reUseableComponents/button';
 
 
-import { PARAGRAPH_HEXCOLOR,MAINBUTTON_HOVER,MAINBUTTON_PRE_HOVER } from '../componentConstants/textColors';
+import {MAINBUTTON_HOVER,MAINBUTTON_PRE_HOVER } from '../componentConstants/greenButtonColors';
 
 
 //font for the lets go button
@@ -43,7 +43,7 @@ export default function Hero(){
             <Grid container  spacing={{ xs: 4, sm: 4,md:12,lg:25,xl:50 }}>
                 <Grid item xs={12} sm={6} md={6} lg={6} xl={6} order={{ xs: 2, sm: 1,md:1,lg:1,xl:1 }}>
                 <h1>Looking for a job or trying to find a worker?</h1>
-                <p style={{maxWidth:"35rem",color:PARAGRAPH_HEXCOLOR}}>We got you!,Our business matches service workers with individuals in need of their services. Whether you are a service worker looking for job opportunities or an individual looking for someone to help with a specific task, we will connect you with the right person.</p>
+                <p style={{maxWidth:"35rem",color:"#434242"}}>We got you!,Our business matches service workers with individuals in need of their services. Whether you are a service worker looking for job opportunities or an individual looking for someone to help with a specific task, we will connect you with the right person.</p>
                 
                 <ThemeProvider theme={button}>
 
