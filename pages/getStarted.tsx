@@ -167,19 +167,11 @@ export default function GetStarted(){
         //check passwords
 
         if (password.length > 0 && repeatPassword.length > 0){
+            
+            //regex checking for minimum 8 chars
+            let passwordRegex = /^.{8,}$/;
 
-            let passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&.]).{12,}$/
 
-
-
-             //check password length and upper case and number and symbol
-             if (!passwordRegex.test(password)){
-
-                scrollTo("#password")
-                dispatch({type:FIELDS_CHECK,payload:{ password:{errorStatus:true, errorMessage:`${password.length < 12?`your password length is:${password.length} chars,passwords should be atleast 12 characters long and`:'your password length is ok but your password'} must contain 1 uppercase letter,1 number and 1 of these symbols @$!%*#?&. `} } })
-                dispatch({type:FIELDS_CHECK,payload:{ repeatPassword:{errorStatus:true, errorMessage:`${password.length < 12?`your password length is:${password.length} chars,passwords should be atleast 12 characters long and`:'your password length is ok but your password'} must contain 1 uppercase letter,1 number and 1 of these symbols @$!%*#?&. `} } })  
-                return false  
-            }
 
             //check password match
             if (password !== repeatPassword){
@@ -189,6 +181,18 @@ export default function GetStarted(){
                 dispatch({type:FIELDS_CHECK,payload:{ repeatPassword:{errorStatus:true, errorMessage:`passwords don't match,try again`} } })  
                 return false
             } 
+
+             //check password length and upper case and number and symbol
+             if (!passwordRegex.test(password)){
+
+                scrollTo("#password")
+                dispatch({type:FIELDS_CHECK,payload:{ password:{errorStatus:true, errorMessage: `your password length is ${password.length} characters,passwords should be atleast 8 characters long` } } })
+                dispatch({type:FIELDS_CHECK,payload:{ repeatPassword:{errorStatus:true, errorMessage: `your password length is ${password.length} characters,passwords should be atleast 8 characters long` } } })
+                
+                return false  
+            }
+
+            
             
            
 
@@ -210,7 +214,9 @@ export default function GetStarted(){
 
     //first name and last name check to only have letters
 
-    const checkNamePassed = (firstName:string,lastName:string):boolean =>{
+    const checkNamePassed = (obj:{[key:string]:string}):boolean =>{
+
+        const {firstName,lastName} = obj;
         const letterRegex = /^[A-Za-z]+$/;
         const firstNameAccepted = letterRegex.test(firstName)
         const lastNameAccepted = letterRegex.test(lastName)

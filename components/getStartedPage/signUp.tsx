@@ -31,7 +31,7 @@ interface signUpProps{
     checkEmptyFieldsPassed:(obj:{[key:string]:string}) => boolean;
     passwordCheckPassed:(obj:{[key:string]:string}) => boolean;
     emailCheckPassed:(email:string) => boolean;
-    checkNamePassed:(firstName:string,lastName:string) => boolean;
+    checkNamePassed:(obj:{[key:string]:string}) => boolean;
     signUpData:{
         firstName:string;
         lastName:string;
@@ -52,10 +52,6 @@ interface signUpProps{
 
 export default function SignUp({handleSignUpDataState,signUpData,checkEmptyFieldsPassed,signUpFields,passwordCheckPassed,checkNamePassed,emailCheckPassed}:signUpProps){
 
-    const {firstName,lastName,emailAddress,password,repeatPassword} = signUpData;
-
-   
-
 
     const [showPassword,setShowPassword] = useState(false);
 
@@ -71,21 +67,21 @@ export default function SignUp({handleSignUpDataState,signUpData,checkEmptyField
     const handle_SignUpData_Submit = ():void =>{
         
         //trimmed fields data,removes spaces
-        const fieldObject = {firstName:firstName.trim(),lastName:lastName.trim(),emailAddress:emailAddress.trim(),password:password.trim(),repeatPassword:repeatPassword.trim()};
+        const fieldObject = {firstName:signUpData.firstName.trim(),lastName:signUpData.lastName.trim(),emailAddress:signUpData.emailAddress.trim(),password:signUpData.password.trim(),repeatPassword:signUpData.repeatPassword.trim()};
 
         //check the specific field that is empty and return an array containing all empty fields and set it's error to true if it is empty
         if(!checkEmptyFieldsPassed(fieldObject)) return;
         
 
         //check if name is not letter
-        if(!checkNamePassed(firstName,lastName)) return;
+        if(!checkNamePassed(fieldObject)) return;
 
 
         //check email address
-        if(!emailCheckPassed(emailAddress)) return;
+        if(!emailCheckPassed(fieldObject.emailAddress)) return;
         
         //check if these fields contain emojis
-        if(!passwordCheckPassed({password,repeatPassword})) return;
+        if(!passwordCheckPassed({password:fieldObject.password,repeatPassword:fieldObject.repeatPassword})) return;
 
     
         
