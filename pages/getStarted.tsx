@@ -110,6 +110,7 @@ export default function GetStarted(){
             scrollTo("#signUpContainer")
             emptyFields.forEach( (emptyField)=> dispatch(
 
+            
                 {type:FIELDS_CHECK,payload:{ [emptyField]:{errorStatus:true, errorMessage:`${emptyField} is required!`} } }
                 
                 
