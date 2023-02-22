@@ -3,7 +3,11 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { Configuration, OpenAIApi } from "openai";
 
 
-const OPENAIAPIKEY = "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"
+import * as dotenv from 'dotenv'
+dotenv.config()
+
+
+const OPENAIAPIKEY = process.env.OPENAI_SECRET_KEY
 
 
 const configuration = new Configuration({
